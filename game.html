@@ -44,33 +44,33 @@
         }
 
         function playerMove() {
-            // if(upKeyPress == true && playerYpos > 0) {
-            //     playerYpos -= PLAYER_SIZE
-            // }
+            if(upKeyPress ) {
+                playerYpos -= PLAYER_SIZE
+            }
 
-            // if(downKeyPress && playerYpos + PLAYER_SIZE < canvas.height){
-            //     playerYpos += PLAYER_SIZE
-            // }
+            if(downKeyPress ){
+                playerYpos += PLAYER_SIZE
+            }
         }
 
-        // function keyPressed(evt) {
+        function keyPressed(evt) {
 
-        //     if (evt.keyCode == UP_KEY) {
-        //         upKeyPress = true;
-        //     }
-        //     if (evt.keyCode == DOWN_KEY) {
-        //         downKeyPress = true;
-        //     }
-        // }
+            if (evt.keyCode == UP_KEY) {
+                upKeyPress = true;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPress = true;
+            }
+        }
 
-        // function keyReleased(evt) {
+        function keyReleased(evt) {
 
-        //     if (evt.keyCode == UP_KEY) {
-        //         upKeyPress = false;
-        //     }
-        //     if (evt.keyCode == DOWN_KEY) {
-        //         downKeyPress = false;
-        //     }
-        // }
+            if (evt.keyCode == UP_KEY) {
+                upKeyPress = false;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPress = false;
+            }
+        }
     </script>
 </body>
