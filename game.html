@@ -8,9 +8,19 @@
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
 
+            setInterval(mainloop, 1000 / 50);
         }
         
         
+        function mainloop() {
+            colorRect(0,0,canvas.width,canvas.height,'black'); // bg
+  
+        }
+        
+         function colorRect(x,y,w,h,c){
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x,y,w,h);
+        }
     
     </script>
 </body>
