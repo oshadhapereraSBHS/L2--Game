@@ -44,12 +44,12 @@
         }
 
         function playerMove() {
-            if(upKeyPress ) {
-                playerYpos -= PLAYER_SIZE
+            if(upKeyPress == true && playerYpos > 0) {
+                playerYpos -= playerSpeed
             }
 
-            if(downKeyPress ){
-                playerYpos += PLAYER_SIZE
+            if(downKeyPress && playerYpos + PLAYER_SIZE < canvas.height){
+                playerYpos += playerSpeed
             }
         }
 
