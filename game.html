@@ -17,18 +17,24 @@
             canvasContext = canvas.getContext('2d');
 
             setInterval(mainloop, 1000 / 50);
+            
         }
         
         
         function mainloop() {
             colorRect(0,0,canvas.width,canvas.height,'black'); // bg
-            colorRect(playerXpos,590, 10, 10,'red'); // bg
-
+            colorRect(playerXpos,playerYpos, PLAYER_SIZE, PLAYER_SIZE,'red'); // bg
+            playerMove();
         }
         
          function colorRect(x,y,w,h,c){
             canvasContext.fillStyle = c;
             canvasContext.fillRect(x,y,w,h);
+        }
+
+        function playerMove(){
+            playerXpos += playerSpeed;
+            playerYpos -= playerSpeed;
         }
     
     </script>
