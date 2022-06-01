@@ -30,8 +30,10 @@
         
         
         function mainloop() {
-            colorRect(0,0,canvas.width,canvas.height,'black'); // bg
-            colorRect(playerXpos,playerYpos, PLAYER_SIZE, PLAYER_SIZE,'red'); // bg
+            colorRect(0,0,canvas.width,canvas.height,'black');
+            colorRect(playerXpos,playerYpos, PLAYER_SIZE, PLAYER_SIZE,'red');
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
             playerMove();
             console.log(keyboard.getKey)
         }
