@@ -11,6 +11,10 @@
         var playerYpos = 600 - PLAYER_SIZE
         var playerSpeed = 5;
 
+        const ENEMY_SIZE = 10;
+        var enemyXpos = 500;
+        var enemyYpos = 250;
+        var enemySpeed = 4;
 
 
         const UP_KEY = 38;
@@ -33,7 +37,7 @@
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
             colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red');
-            colorRect(0,0,10,10,'green')
+            colorRect(enemyXpos, enemyYpos, ENEMY_SIZE, ENEMY_SIZE, 'green')
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
