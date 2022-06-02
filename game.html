@@ -43,6 +43,7 @@
             document.addEventListener('keyup', keyReleased);
             playerMove();
             enemyMove();
+            makeEnemies();
         }
 
         function colorRect(x, y, w, h, c) {
@@ -98,6 +99,7 @@
                 enemyColor: 'green'
             }
 
+            enemies.push(enemy)
 
         }
     </script>
