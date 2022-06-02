@@ -1,41 +1,76 @@
 <!doctype html>
+
 <body>
     <canvas id="gameCanvas" width="600" height="600"></canvas>
     <script>
         var canvas, canvasContext;
 
-        var playerXpos = 295;
-        var playerYpos = 590;
-        var playerSpeed = 5;
+
         const PLAYER_SIZE = 10;
+        var playerXpos = (600 - PLAYER_SIZE) / 2
+        var playerYpos = 600 - PLAYER_SIZE
+        var playerSpeed = 5;
 
 
 
+        const UP_KEY = 38;
+        const DOWN_KEY = 40;
+        const SPACE_KEY = 32;
 
-        window.onload = function() {
+        var upKeyPress = false;
+        var downKeyPress = false;
+        var spaceKeyPress = false;
+
+        window.onload = function () {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
 
             setInterval(mainloop, 1000 / 50);
-            
-        }
-        
-        
-        function mainloop() {
-            colorRect(0,0,canvas.width,canvas.height,'black'); // bg
-            colorRect(playerXpos,playerYpos, PLAYER_SIZE, PLAYER_SIZE,'red'); // bg
-            playerMove();
-        }
-        
-         function colorRect(x,y,w,h,c){
-            canvasContext.fillStyle = c;
-            canvasContext.fillRect(x,y,w,h);
+
         }
 
-        function playerMove(){
-            playerXpos += playerSpeed;
-            playerYpos -= playerSpeed;
+
+        function mainloop() {
+            colorRect(0, 0, canvas.width, canvas.height, 'black');
+            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red');
+            document.addEventListener('keydown', keyPressed);
+            document.addEventListener('keyup', keyReleased);
+            playerMove();
         }
-    
+
+        function colorRect(x, y, w, h, c) {
+            canvasContext.fillStyle = c;
+            canvasContext.fillRect(x, y, w, h);
+        }
+
+        function playerMove() {
+            if(upKeyPress == true && playerYpos > 0) {
+                playerYpos -= playerSpeed
+            }
+
+            if(downKeyPress && playerYpos + PLAYER_SIZE < canvas.height){
+                playerYpos += playerSpeed
+            }
+        }
+
+        function keyPressed(evt) {
+
+            if (evt.keyCode == UP_KEY) {
+                upKeyPress = true;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPress = true;
+            }
+        }
+
+        function keyReleased(evt) {
+
+            if (evt.keyCode == UP_KEY) {
+                upKeyPress = false;
+            }
+            if (evt.keyCode == DOWN_KEY) {
+                downKeyPress = false;
+            }
+        }
     </script>
 </body>
