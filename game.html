@@ -41,6 +41,7 @@
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
+            enemyMove();
         }
 
         function colorRect(x, y, w, h, c) {
@@ -76,6 +77,10 @@
             if (evt.keyCode == DOWN_KEY) {
                 downKeyPress = false;
             }
+        }
+
+        function enemyMove(){
+            enemyXpos -= enemySpeed;
         }
     </script>
 </body>
