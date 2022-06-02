@@ -13,7 +13,7 @@
 
         const ENEMY_SIZE = 10;
         var enemyXpos = 500;
-        var enemyYpos = 250;
+        var enemyYpos = Math.floor(Math.random()*(590-0)+0)
         var enemySpeed = 4;
 
         var enemies = [];
@@ -82,6 +82,13 @@
 
         function enemyMove(){
             enemyXpos -= enemySpeed;
+        }
+
+        function makeEnemies(){
+            const ENEMY_SIZE = 10;
+            var enemyXpos = 500;
+            var enemyYpos = Math.floor(Math.random()*(590-0)+0)
+            var enemySpeed = 4;
         }
     </script>
 </body>
