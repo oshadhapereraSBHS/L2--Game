@@ -40,12 +40,11 @@
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
             colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red');
-            colorRect(enemyXpos, enemyYpos, ENEMY_SIZE, ENEMY_SIZE, 'green')
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
             enemyMove();
-            
+            drawEnemies();
 
             for(i=0; i < totalEnemies; i++) {
                 makeEnemies();
@@ -108,5 +107,14 @@
             enemies.push(enemy)
 
         }
+
+        function drawEnemies(){
+            enemies.forEach(function(enemy){
+                colorRect(enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE, 'green')
+
+            })
+        }
+
+
     </script>
 </body>
