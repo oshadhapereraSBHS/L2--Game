@@ -16,6 +16,8 @@
         var enemyYpos = Math.floor(Math.random()*(590-0)+0)
         var enemySpeed = 4;
 
+        var totalEnemies = 5;
+
         var enemies = [];
 
         const UP_KEY = 38;
@@ -43,7 +45,11 @@
             document.addEventListener('keyup', keyReleased);
             playerMove();
             enemyMove();
-            makeEnemies();
+            
+
+            for(i=0; i < totalEnemies; i++) {
+                makeEnemies();
+            }
         }
 
         function colorRect(x, y, w, h, c) {
