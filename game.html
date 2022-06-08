@@ -115,7 +115,11 @@
                 enemy.enemyXpos -= enemy.enemySpeed
             
             
-   
+            if(enemy.enemyXpos < 0 - ENEMY_SIZE) {
+                enemy.enemyXpos = 600;
+                enemy.enemyYpos = Math.floor(Math.random()*(590-0)+0)
+            }
+            
             
             
             })
