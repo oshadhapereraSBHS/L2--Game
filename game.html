@@ -11,6 +11,15 @@
         var playerYpos = 600 - PLAYER_SIZE
         var playerSpeed = 5;
 
+        const ENEMY_SIZE = 10;
+        var enemyXpos = 600;
+        var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
+        var enemySpeed = 4;
+
+        var totalEnemies = 5;
+        var makingEnemies = true;
+
+        var enemies = [];
 
 
         const UP_KEY = 38;
@@ -29,6 +38,23 @@
 
         }
 
+        function makeEnemies() {
+            const ENEMY_SIZE = 10;
+            var enemyXpos = 600;
+            var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
+            var enemySpeed = 4;
+
+            var enemy = {
+                enemyXpos: enemyXpos,
+                enemyYpos: enemyYpos,
+                ENEMY_SIZE: ENEMY_SIZE,
+                enemySpeed: enemySpeed,
+                enemyColor: 'green'
+            }
+
+            enemies.push(enemy)
+
+        }
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
@@ -36,6 +62,20 @@
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
+
+
+            if (makingEnemies == true) {
+                for (i = 0; i < totalEnemies; i++) {
+                    makeEnemies();
+
+                }
+                makingEnemies = false;
+
+            }
+
+            drawEnemies();
+            enemyMove();
+
         }
 
         function colorRect(x, y, w, h, c) {
@@ -43,15 +83,6 @@
             canvasContext.fillRect(x, y, w, h);
         }
 
-        function playerMove() {
-            if(upKeyPress == true && playerYpos > 0) {
-                playerYpos -= playerSpeed
-            }
-
-            if(downKeyPress && playerYpos + PLAYER_SIZE < canvas.height){
-                playerYpos += playerSpeed
-            }
-        }
 
         function keyPressed(evt) {
 
@@ -70,6 +101,56 @@
             }
             if (evt.keyCode == DOWN_KEY) {
                 downKeyPress = false;
+            }
+        }
+
+        function enemyMove() {
+            enemies.forEach(function (enemy, i, array) {
+                enemy.enemyXpos -= enemy.enemySpeed
+
+
+                if (enemy.enemyXpos < 0 - ENEMY_SIZE) {
+                    enemy.enemyXpos = 600;
+                    enemy.enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
+                }
+
+
+
+            })
+        }
+
+
+
+        function drawEnemies() {
+            enemies.forEach(function (enemy, i) {
+                colorRect(enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE, 'green')
+
+            })
+        }
+
+
+        //     var gravity = 1;
+
+        //     function playerMove() {
+        //         if (upKeyPress == false && playerYpos <= canvas.height - PLAYER_SIZE) {
+        //             playerYpos += gravity;
+        //             gravity += 0.5;
+
+        //         }
+
+
+        //         if (upKeyPress == true && playerYpos > 0) {
+        //             playerYpos -= playerSpeed;
+        //             gravity=0.5
+
+        //         }
+
+        //     }
+        // 
+
+        function playerMove() {
+            if(upkeyPress == true){
+                playerYpos -= playerSpeed
             }
         }
     </script>
