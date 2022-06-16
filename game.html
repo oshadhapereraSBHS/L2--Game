@@ -151,14 +151,14 @@
 
             function playerMove() {
                 if (upKeyPress == false && playerYpos <= canvas.height - PLAYER_SIZE) {
-                    playerYpos += playerSpeed;
+                    playerYpos -= playerSpeed;
 
                 }
 
 
                 if (upKeyPress == true && playerYpos > 0) {
                     playerYpos -= playerSpeed;
-
+                    gravity=0.5
                 }
 
             }
