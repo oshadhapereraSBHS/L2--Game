@@ -134,10 +134,7 @@
             function playerMove() {
                 if (upKeyPress == false && playerYpos <= canvas.height - PLAYER_SIZE) {
                     playerYpos += gravity;
-                    setInterval(function () {
-                        gravity += 0.5;
-                    }, 100)
-                    
+                    gravity += 0.5;
 
                 }
 
