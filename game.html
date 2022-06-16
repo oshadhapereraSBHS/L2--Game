@@ -129,29 +129,15 @@
         }
 
 
-        //     var gravity = 1;
-
-        //     function playerMove() {
-        //         if (upKeyPress == false && playerYpos <= canvas.height - PLAYER_SIZE) {
-        //             playerYpos += gravity;
-        //             gravity += 0.5;
-
-        //         }
-
-
-        //         if (upKeyPress == true && playerYpos > 0) {
-        //             playerYpos -= playerSpeed;
-        //             gravity=0.5
-
-        //         }
-
-        //     }
-        // 
-                //     var gravity = 1;
+            var gravity = 1;
 
             function playerMove() {
                 if (upKeyPress == false && playerYpos <= canvas.height - PLAYER_SIZE) {
-                    playerYpos -= playerSpeed;
+                    playerYpos += gravity;
+                    setInterval(function () {
+                        gravity += 0.5;
+                    }, 100)
+                    
 
                 }
 
@@ -159,9 +145,12 @@
                 if (upKeyPress == true && playerYpos > 0) {
                     playerYpos -= playerSpeed;
                     gravity=0.5
+
                 }
 
             }
+        
+                
         
     </script>
 </body>
