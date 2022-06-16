@@ -147,11 +147,21 @@
 
         //     }
         // 
+                //     var gravity = 1;
 
-        function playerMove() {
-            if(upkeyPress == true){
-                playerYpos -= playerSpeed
+            function playerMove() {
+                if (upKeyPress == false && playerYpos <= canvas.height - PLAYER_SIZE) {
+                    playerYpos += playerSpeed;
+
+                }
+
+
+                if (upKeyPress == true && playerYpos > 0) {
+                    playerYpos -= playerSpeed;
+
+                }
+
             }
-        }
+        
     </script>
 </body>
