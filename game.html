@@ -113,7 +113,7 @@
                     enemy.enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
                 }
 
-                if(enemy.enemyXpos < playerXpos + PLAYER_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE > playerXpos) {
+                if(enemy.enemyXpos < playerXpos + PLAYER_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE > playerXpos && enemy.enemyYpos < playerYpos + PLAYER_SIZE && enemy.enemyYpos + enemy.ENEMY_SIZE > playerYpos) {
 console.log('hit')}
             })
         }
