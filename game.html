@@ -40,9 +40,10 @@
 
         function makeEnemies() {
             const ENEMY_SIZE = 10;
+            var enemyPos = Math.floor(Math.random() *4)+1;
             var enemyXpos = 600;
-            var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
-            var enemySpeed = 4;
+            var enemyYpos = (canvas.height / 4) * enemyPos;
+            var enemySpeed = Math.floor(Math.random()*10-5)+5
 
             var enemy = {
                 enemyXpos: enemyXpos,
@@ -113,9 +114,7 @@
                     enemy.enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
                 }
 
-                if (enemy.enemyXpos < playerXpos + PLAYER_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE >
-                    playerXpos && enemy.enemyYpos < playerYpos + PLAYER_SIZE && enemy.enemyYpos + enemy
-                    .ENEMY_SIZE > playerYpos) {
+                if (enemy.enemyXpos < playerXpos + PLAYER_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE > playerXpos && enemy.enemyYpos < playerYpos + PLAYER_SIZE && enemy.enemyYpos + enemy.ENEMY_SIZE > playerYpos) {
                     playerXpos =  (600 - PLAYER_SIZE) / 2
                 }
             })
