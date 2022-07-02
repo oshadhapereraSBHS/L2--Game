@@ -25,7 +25,7 @@
         var makingEnemies = true;
 
         var enemies = [];
-
+        var bullets = [];
 
         const UP_KEY = 38;
         const DOWN_KEY = 40;
@@ -60,6 +60,13 @@
 
             enemies.push(enemy)
 
+        }
+
+        function makeBullets(){
+          const BULLET_SIZE = 5;
+          var bulletXpos = playerXpos
+          var bulletYpos = playerYpos + PLAYER_SIZE/2
+          var bulletSpeed = 4;
         }
 
         function mainloop() {
