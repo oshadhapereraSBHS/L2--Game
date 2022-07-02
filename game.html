@@ -69,7 +69,7 @@
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
-
+            bulletMove();
 
             if (makingEnemies == true) {
                 for (i = 0; i < totalEnemies; i++) {
@@ -152,6 +152,10 @@
 
             }
 
+        }
+
+        function bulletMove(){
+          bulletXpos += bulletSpeed
         }
     </script>
 </body>
