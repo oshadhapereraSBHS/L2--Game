@@ -67,6 +67,14 @@
           var bulletXpos = playerXpos
           var bulletYpos = playerYpos + PLAYER_SIZE/2
           var bulletSpeed = 4;
+
+          var enemy = {
+              bulletXpos: bulletXpos,
+              bulletYpos: bulletYpos,
+              BULLET_SIZE: BULLET_SIZE,
+              bulletSpeed: bulletSpeed,
+              bulletColor: 'green'
+          }
         }
 
         function mainloop() {
