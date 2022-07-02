@@ -28,11 +28,9 @@
         var bullets = [];
 
         const UP_KEY = 38;
-        const DOWN_KEY = 40;
         const SPACE_KEY = 32;
 
         var upKeyPress = false;
-        var downKeyPress = false;
         var spaceKeyPress = false;
 
         window.onload = function () {
@@ -75,6 +73,8 @@
               bulletSpeed: bulletSpeed,
               bulletColor: 'green'
           }
+
+          bullets.push(bullet)
         }
 
         function mainloop() {
@@ -111,8 +111,8 @@
             if (evt.keyCode == UP_KEY) {
                 upKeyPress = true;
             }
-            if (evt.keyCode == DOWN_KEY) {
-                downKeyPress = true;
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPress = true;
             }
         }
 
@@ -121,8 +121,8 @@
             if (evt.keyCode == UP_KEY) {
                 upKeyPress = false;
             }
-            if (evt.keyCode == DOWN_KEY) {
-                downKeyPress = false;
+            if (evt.keyCode == SPACE_KEY) {
+                spaceKeyPress = false;
             }
         }
 
@@ -170,7 +170,10 @@
         }
 
         function bulletMove(){
-          bulletXpos += bulletSpeed
+          if(spaceKeyPress == true){
+            bulletXpos += bulletSpeed
+            
+          }
         }
     </script>
 </body>
