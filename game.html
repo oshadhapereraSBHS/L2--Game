@@ -16,13 +16,15 @@
         var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
         var enemySpeed = 4;
 
-                const BULLET_SIZE = 5;
-                var bulletXpos = playerXpos
-                var bulletYpos = playerYpos + PLAYER_SIZE/2
-                var bulletSpeed = 4;
+        const BULLET_SIZE = 5;
+        var bulletXpos = playerXpos
+        var bulletYpos = playerYpos + PLAYER_SIZE / 2
+        var bulletSpeed = 4;
 
         var totalEnemies = 5;
         var makingEnemies = true;
+        var totalBullets = 5;
+        var makingBullets = true;
 
         var enemies = [];
         var bullets = [];
@@ -43,10 +45,10 @@
 
         function makeEnemies() {
             const ENEMY_SIZE = 10;
-            var enemyPos = Math.floor(Math.random() *4)+1;
+            var enemyPos = Math.floor(Math.random() * 4) + 1;
             var enemyXpos = 600;
             var enemyYpos = (canvas.height / 4) * enemyPos;
-            var enemySpeed = Math.floor(Math.random()*10-5)+5
+            var enemySpeed = Math.floor(Math.random() * 10 - 5) + 5
 
             var enemy = {
                 enemyXpos: enemyXpos,
@@ -60,43 +62,53 @@
 
         }
 
-        function makeBullets(){
-          const BULLET_SIZE = 5;
-          var bulletXpos = playerXpos
-          var bulletYpos = playerYpos + PLAYER_SIZE/2
-          var bulletSpeed = 4;
+        function makeBullets() {
+            const BULLET_SIZE = 5;
+            var bulletXpos = playerXpos
+            var bulletYpos = playerYpos + PLAYER_SIZE / 2
+            var bulletSpeed = 4;
 
-          var enemy = {
-              bulletXpos: bulletXpos,
-              bulletYpos: bulletYpos,
-              BULLET_SIZE: BULLET_SIZE,
-              bulletSpeed: bulletSpeed,
-              bulletColor: 'green'
-          }
+            var bullet = {
+                bulletXpos: bulletXpos,
+                bulletYpos: bulletYpos,
+                BULLET_SIZE: BULLET_SIZE,
+                bulletSpeed: bulletSpeed,
+                bulletColor: 'green'
+            }
 
-          bullets.push(bullet)
+            bullets.push(bullet)
         }
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
             colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red');
-            colorRect(bulletXpos,bulletYpos,BULLET_SIZE,BULLET_SIZE,'white')
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
             bulletMove();
+            enemyMove();
 
-            if (makingEnemies == true) {
-                for (i = 0; i < totalEnemies; i++) {
+
+
+            // if (makingEnemies == true) {
+            //     for (i = 0; i < totalEnemies; i++) {
+                    makeBullets();
+            //     }
+            //     makingEnemies = false;
+
+            // }
+
+
+            if (makingBullets == true) {
+                for (i = 0; i < totalBullets; i++) {
                     makeEnemies();
-
                 }
-                makingEnemies = false;
+                makingBullets = false;
 
             }
 
             drawEnemies();
-            enemyMove();
+            drawBullets();
 
         }
 
@@ -126,31 +138,6 @@
             }
         }
 
-        function enemyMove() {
-            enemies.forEach(function (enemy, i, array) {
-                enemy.enemyXpos -= enemy.enemySpeed
-
-                if (enemy.enemyXpos < 0 - ENEMY_SIZE) {
-                    enemy.enemyXpos = 600;
-                    enemy.enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
-                }
-
-                if (enemy.enemyXpos < playerXpos + PLAYER_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE > playerXpos && enemy.enemyYpos < playerYpos + PLAYER_SIZE && enemy.enemyYpos + enemy.ENEMY_SIZE > playerYpos) {
-                    playerXpos =  (600 - PLAYER_SIZE) / 2
-                }
-            })
-        }
-
-
-
-        function drawEnemies() {
-            enemies.forEach(function (enemy, i) {
-                colorRect(enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE, 'green')
-
-            })
-        }
-
-
         var gravity = 1;
 
         function playerMove() {
@@ -169,11 +156,47 @@
 
         }
 
-        function bulletMove(){
-          if(spaceKeyPress == true){
-            bulletXpos += bulletSpeed
-            
-          }
+        function enemyMove() {
+            enemies.forEach(function (enemy, i, array) {
+                enemy.enemyXpos -= enemy.enemySpeed
+
+                if (enemy.enemyXpos < 0 - ENEMY_SIZE) {
+                    enemy.enemyXpos = 600;
+                    enemy.enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
+                }
+
+                if (enemy.enemyXpos < playerXpos + PLAYER_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE >
+                    playerXpos && enemy.enemyYpos < playerYpos + PLAYER_SIZE && enemy.enemyYpos + enemy
+                    .ENEMY_SIZE > playerYpos) {
+                    playerXpos = (600 - PLAYER_SIZE) / 2
+                }
+            })
+        }
+
+
+        function bulletMove() {
+            bullets.forEach(function (bullet, i, array) {
+                if (spaceKeyPress == true) {
+                    bullet.bulletXpos += bullet.bulletSpeed
+                }
+            })
+
+
+        }
+
+        function drawEnemies() {
+            enemies.forEach(function (enemy, i) {
+                colorRect(enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE, 'green')
+
+            })
+        }
+
+        function drawBullets() {
+            bullets.forEach(function (bullet, i) {
+                colorRect(bullet.bulletXpos, bullet.bulletYpos, bullet.BULLET_SIZE, bullet.BULLET_SIZE, 'white')
+            })
+
+
         }
     </script>
 </body>
