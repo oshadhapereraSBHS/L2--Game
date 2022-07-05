@@ -92,20 +92,15 @@
 
             if (makingEnemies == true) {
                 for (i = 0; i < totalEnemies; i++) {
-                    makeBullets();
-                }
-                makingEnemies = false; 
-
-            }
-
-
-            if (makingBullets == true) {
-                for (i = 0; i < totalBullets; i++) {
                     makeEnemies();
                 }
-                makingBullets = false;
+                makingEnemies = false;
 
             }
+
+
+
+
 
             drawEnemies();
             drawBullets();
@@ -125,6 +120,7 @@
             }
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPress = true;
+                makeBullets();
             }
         }
 
@@ -141,9 +137,9 @@
         var gravity = 1;
 
         function playerMove() {
-            if (upKeyPress == false && playerYpos <= canvas.height - PLAYER_SIZE) {
+            if (upKeyPress == false && playerYpos < canvas.height - PLAYER_SIZE) {
                 playerYpos += gravity;
-                gravity += 0.5;
+                gravity += 0.4;
 
             }
 
@@ -152,6 +148,10 @@
                 playerYpos -= playerSpeed;
                 gravity = 0.5
 
+            }
+
+            if(playerYpos > canvas.height - PLAYER_SIZE){
+                playerYpos = canvas.height - PLAYER_SIZE
             }
 
         }
@@ -174,15 +174,31 @@
         }
 
 
+
+
         function bulletMove() {
             bullets.forEach(function (bullet, i, array) {
                 if (spaceKeyPress == true) {
                     bullet.bulletXpos += bullet.bulletSpeed
                 }
+
+                enemies.forEach(function (enemy, i, array) {
+
+                    if(enemy.enemyXpos < bullet.bulletXpos + bullet.BULLET_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE >
+                    bullet.bulletXpos && enemy.enemyYpos < bullet.bulletYpos + bullet.BULLET_SIZE && enemy.enemyYpos + enemy
+                    .ENEMY_SIZE > bullet.bulletYpos){
+
+                    }
+
+                })
+
+                
+
             })
 
 
         }
+
 
         function drawEnemies() {
             enemies.forEach(function (enemy, i) {
