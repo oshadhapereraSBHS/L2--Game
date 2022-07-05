@@ -178,16 +178,15 @@
 
         function bulletMove() {
             bullets.forEach(function (bullet, i, array) {
-                if (spaceKeyPress == true) {
                     bullet.bulletXpos += bullet.bulletSpeed
-                }
 
                 enemies.forEach(function (enemy, i, array) {
 
                     if(enemy.enemyXpos < bullet.bulletXpos + bullet.BULLET_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE >
                     bullet.bulletXpos && enemy.enemyYpos < bullet.bulletYpos + bullet.BULLET_SIZE && enemy.enemyYpos + enemy
                     .ENEMY_SIZE > bullet.bulletYpos){
-
+                        delete bullets[i];
+                        delete enemies[i];
                     }
 
                 })
