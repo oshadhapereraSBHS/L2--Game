@@ -169,6 +169,7 @@
                     playerXpos && enemy.enemyYpos < playerYpos + PLAYER_SIZE && enemy.enemyYpos + enemy
                     .ENEMY_SIZE > playerYpos) {
                     playerXpos = (600 - PLAYER_SIZE) / 2
+                    enemy.enemyXpos = canvas.width + 10;
                 }
             })
         }
@@ -190,6 +191,7 @@
                         enemy.enemyYpos + enemy
                         .ENEMY_SIZE > bullet.bulletYpos) {
                         bullet.bulletYpos = canvas.width + 10;
+                        enemy.enemyXpos = canvas.width + 10;
 
                     }
 
