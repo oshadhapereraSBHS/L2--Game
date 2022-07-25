@@ -9,7 +9,7 @@
         var player = new Image();
         player.src = "player.png"
 
-        const PLAYER_SIZE = 10;
+        const PLAYER_SIZE = 80;
         var playerXpos = (600 - PLAYER_SIZE) / 2
         var playerYpos = 600 - PLAYER_SIZE
         var playerSpeed = 5;
@@ -85,7 +85,7 @@
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
-            colorRect(playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE, 'red');
+            drawImg(player, playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE);
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
