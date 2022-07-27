@@ -85,7 +85,7 @@
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
-            drawImg(player, playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE);
+            drawImg(player, 0, 0, 100, 300, playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE);
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
