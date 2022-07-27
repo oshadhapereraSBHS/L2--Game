@@ -9,9 +9,10 @@
         var player = new Image();
         player.src = "spritesheet.png"
 
-        const PLAYER_SIZE = 80;
-        var playerXpos = (600 - PLAYER_SIZE) / 2
-        var playerYpos = 600 - PLAYER_SIZE
+        const PLAYER_HEIGHT = 100;
+        const PLAYER_WIDTH = 50;
+        var playerXpos = (600 - PLAYER_WIDTH) / 2
+        var playerYpos = 600 - PLAYER_HEIGHT
         var playerSpeed = 5;
 
         const ENEMY_SIZE = 10;
@@ -21,7 +22,7 @@
 
         const BULLET_SIZE = 5;
         var bulletXpos = playerXpos
-        var bulletYpos = playerYpos + PLAYER_SIZE / 2
+        var bulletYpos = playerYpos + PLAYER_HEIGHT / 2
         var bulletSpeed = 4;
 
         var totalEnemies = 5;
@@ -85,7 +86,7 @@
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
-            drawImg(player, 0, 0, 100, 300, playerXpos, playerYpos, PLAYER_SIZE, PLAYER_SIZE);
+            drawImg(player, 0, 0, 100, 300, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
@@ -145,7 +146,7 @@
         var gravity = 1;
 
         function playerMove() {
-            if (upKeyPress == false && playerYpos < canvas.height - PLAYER_SIZE) {
+            if (upKeyPress == false && playerYpos < canvas.height - PLAYER_HEIGHT) {
                 playerYpos += gravity;
                 gravity += 0.4;
 
@@ -158,8 +159,8 @@
 
             }
 
-            if (playerYpos > canvas.height - PLAYER_SIZE) {
-                playerYpos = canvas.height - PLAYER_SIZE
+            if (playerYpos > canvas.height - PLAYER_HEIGHT) {
+                playerYpos = canvas.height - PLAYER_HEIGHT
             }
 
         }
@@ -173,10 +174,10 @@
                     enemy.enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
                 }
 
-                if (enemy.enemyXpos < playerXpos + PLAYER_SIZE && enemy.enemyXpos + enemy.ENEMY_SIZE >
-                    playerXpos && enemy.enemyYpos < playerYpos + PLAYER_SIZE && enemy.enemyYpos + enemy
+                if (enemy.enemyXpos < playerXpos + PLAYER_WIDTH && enemy.enemyXpos + enemy.ENEMY_SIZE >
+                    playerXpos && enemy.enemyYpos < playerYpos + PLAYER_HEIGHT && enemy.enemyYpos + enemy
                     .ENEMY_SIZE > playerYpos) {
-                    playerXpos = (600 - PLAYER_SIZE) / 2
+                    playerXpos = (600 - PLAYER_WIDTH) / 2
                     enemy.enemyXpos = canvas.width + 10;
                 }
             })
