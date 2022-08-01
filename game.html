@@ -15,6 +15,13 @@
         var playerYpos = 600 - PLAYER_HEIGHT
         var playerSpeed = 5;
 
+        
+var sourceXpos = 0;
+var sourceYpos = 0;
+const SOURCE_WIDTH = 100;
+const SOURCE_HEIGHT = 300;
+
+
         const ENEMY_SIZE = 10;
         var enemyXpos = 600;
         var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
@@ -70,7 +77,7 @@
         function makeBullets() {
             const BULLET_SIZE = 5;
             var bulletXpos = playerXpos
-            var bulletYpos = playerYpos + PLAYER_SIZE / 2
+            var bulletYpos = playerYpos + PLAYER_HEIGHT / 2
             var bulletSpeed = 4;
 
             var bullet = {
@@ -86,7 +93,7 @@
 
         function mainloop() {
             colorRect(0, 0, canvas.width, canvas.height, 'black');
-            drawImg(player, 0, 0, 100, 300, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
+            drawImg(player, sourceXpos, sourceYpos, SOURCE_WIDTH, SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
@@ -102,7 +109,6 @@
                 makingEnemies = false;
 
             }
-
 
 
 
