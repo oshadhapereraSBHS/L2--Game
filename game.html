@@ -16,10 +16,10 @@
         var playerSpeed = 5;
 
         
-var sourceXpos = 0;
-var sourceYpos = 0;
-const SOURCE_WIDTH = 100;
-const SOURCE_HEIGHT = 300;
+        var sourceXpos = 0;
+        var sourceYpos = 0;
+        const SOURCE_WIDTH = 100;
+        const SOURCE_HEIGHT = 300;
 
 
         const ENEMY_SIZE = 10;
@@ -39,6 +39,10 @@ const SOURCE_HEIGHT = 300;
 
         var enemies = [];
         var bullets = [];
+        var sprites = [];
+
+        const SPRITES = 4;
+        var spriteNum = 4;
 
         const UP_KEY = 38;
         const SPACE_KEY = 32;
@@ -99,7 +103,6 @@ const SOURCE_HEIGHT = 300;
             playerMove();
             bulletMove();
             enemyMove();
-
 
 
             if (makingEnemies == true) {
@@ -169,8 +172,19 @@ const SOURCE_HEIGHT = 300;
                 playerYpos = canvas.height - PLAYER_HEIGHT
             }
 
-        }
+            for(i=0; i<SPRITES; i++){
+                sprites[i] = new Array(2);
+                // sprites[i][0] = SOURCE_WIDTH * i;
+                // sprites[i][1] = SOURCE_HEIGHT;
+            //     sourceXpos = sprites[i][0];
+            // sourceYpos = sprites[i][1];;
+            }
 
+
+        
+        }
+        
+       
         function enemyMove() {
             enemies.forEach(function (enemy, i, array) {
                 enemy.enemyXpos -= enemy.enemySpeed
