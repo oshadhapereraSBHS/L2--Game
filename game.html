@@ -9,7 +9,7 @@
         var player = new Image();
         player.src = "spritesheet.png"
 
-        const PLAYER_HEIGHT = 100;
+        const PLAYER_HEIGHT = 80;
         const PLAYER_WIDTH = 50;
         var playerXpos = (600 - PLAYER_WIDTH) / 2
         var playerYpos = 600 - PLAYER_HEIGHT
@@ -18,8 +18,8 @@
         
         var sourceXpos = 0;
         var sourceYpos = 0;
-        const SOURCE_WIDTH = 100;
-        const SOURCE_HEIGHT = 300;
+        const SOURCE_WIDTH = 130;
+        const SOURCE_HEIGHT = 200;
 
 
         const ENEMY_SIZE = 10;
@@ -42,7 +42,8 @@
         var sprites = [];
 
         const SPRITES = 4;
-        var spriteNum = 4;
+        var spriteNum = 0;
+       
 
         const UP_KEY = 38;
         const SPACE_KEY = 32;
@@ -103,7 +104,7 @@
             playerMove();
             bulletMove();
             enemyMove();
-
+            playerAnimation();
 
             if (makingEnemies == true) {
                 for (i = 0; i < totalEnemies; i++) {
@@ -173,18 +174,31 @@
             }
 
             for(i=0; i<SPRITES; i++){
+                
+
                 sprites[i] = new Array(2);
-                // sprites[i][0] = SOURCE_WIDTH * i;
-                // sprites[i][1] = SOURCE_HEIGHT;
-            //     sourceXpos = sprites[i][0];
-            // sourceYpos = sprites[i][1];;
+                sprites[i][0] = SOURCE_WIDTH * i;
+                sprites[i][1] = 0;
+
             }
 
 
         
         }
-        
-       
+// var framerate = 0.1;
+        function playerAnimation(){
+                
+                sourceXpos = sprites[Math.floor(spriteNum)][0];
+                sourceYpos = sprites[Math.floor(spriteNum)][1];
+                // spriteNum+= framerate
+spriteNum++;
+                if(spriteNum > 3){
+                    spriteNum=0;
+                }
+                
+        }
+
+ 
         function enemyMove() {
             enemies.forEach(function (enemy, i, array) {
                 enemy.enemyXpos -= enemy.enemySpeed
