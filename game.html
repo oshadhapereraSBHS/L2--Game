@@ -179,13 +179,17 @@
                 sprites[i] = new Array(2);
                 sprites[i][0] = SOURCE_WIDTH * i;
                 sprites[i][1] = 0;
-
+                if(playerYpos < 510){
+                sprites[i][0] = SOURCE_WIDTH;
             }
+            }
+
+            
 
 
         
         }
-var frameRate = 0.1;
+        var frameRate = 0.1;
         function playerAnimation(){
                 
                 sourceXpos = sprites[Math.floor(spriteNum)][0];
