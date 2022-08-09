@@ -185,13 +185,13 @@
 
         
         }
-// var framerate = 0.1;
+var frameRate = 0.1;
         function playerAnimation(){
                 
                 sourceXpos = sprites[Math.floor(spriteNum)][0];
                 sourceYpos = sprites[Math.floor(spriteNum)][1];
-                // spriteNum+= framerate
-spriteNum++;
+                spriteNum+= frameRate
+
                 if(spriteNum > 3){
                     spriteNum=0;
                 }
