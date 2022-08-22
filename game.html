@@ -5,25 +5,27 @@
     <script>
         var canvas, canvasContext;
 
-
+        //adding images for player and enemy
         var player = new Image();
         player.src = "spritesheet.png"
 
         var enemySrc = new Image();
         enemySrc.src = "enemy.png"
 
+        var background = new Image();
+        background.src = "bg.png"
+
+        //variables and constants for player properties
         const PLAYER_HEIGHT = 80;
         const PLAYER_WIDTH = 50;
         var playerXpos = (600 - PLAYER_WIDTH) / 2
         var playerYpos = 600 - PLAYER_HEIGHT
         var playerSpeed = 5;
-
         
         var sourceXpos = 0;
         var sourceYpos = 0;
         const SOURCE_WIDTH = 130;
         const SOURCE_HEIGHT = 200;
-
 
         const ENEMY_SIZE = 30;
         var enemyXpos = 600;
@@ -58,13 +60,11 @@
         window.onload = function () {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
-
             setInterval(mainloop, 1000 / 50);
-
         }
 
         function makeEnemies() {
-            const ENEMY_SIZE = 40;
+            const ENEMY_SIZE = 50;
             var enemyPos = Math.floor(Math.random() * 4) + 1;
             var enemyXpos = 600;
             var enemyYpos = (canvas.height / 4) * enemyPos;
@@ -99,7 +99,7 @@
         }
 
         function mainloop() {
-            colorRect(0, 0, canvas.width, canvas.height, 'black');
+            drawImg(background, 0, 0, 1422, 798, 0, 0, 600, 600);
             drawImg(player, sourceXpos, sourceYpos, SOURCE_WIDTH, SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
             
             document.addEventListener('keydown', keyPressed);
