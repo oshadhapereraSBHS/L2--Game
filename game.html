@@ -101,7 +101,7 @@
         function mainloop() {
             drawImg(background, 0, 0, 1422, 798, 0, 0, 600, 600);
             drawImg(player, sourceXpos, sourceYpos, SOURCE_WIDTH, SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
-            
+            colorRect(0, 595, 600, 5, 'grey')
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
