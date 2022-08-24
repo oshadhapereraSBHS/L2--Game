@@ -5,24 +5,29 @@
     <script>
         var canvas, canvasContext;
 
-
+        //adding images for player and enemy
         var player = new Image();
         player.src = "spritesheet.png"
 
+        var enemySrc = new Image();
+        enemySrc.src = "enemy.png"
+
+        var background = new Image();
+        background.src = "bg.png"
+
+        //variables and constants for player properties
         const PLAYER_HEIGHT = 80;
         const PLAYER_WIDTH = 50;
         var playerXpos = (600 - PLAYER_WIDTH) / 2
         var playerYpos = 600 - PLAYER_HEIGHT
         var playerSpeed = 5;
-
         
         var sourceXpos = 0;
         var sourceYpos = 0;
         const SOURCE_WIDTH = 130;
         const SOURCE_HEIGHT = 200;
 
-
-        const ENEMY_SIZE = 10;
+        const ENEMY_SIZE = 30;
         var enemyXpos = 600;
         var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
         var enemySpeed = 4;
@@ -55,24 +60,21 @@
         window.onload = function () {
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
-
             setInterval(mainloop, 1000 / 50);
-
         }
 
         function makeEnemies() {
-            const ENEMY_SIZE = 10;
+            const ENEMY_SIZE = 50;
             var enemyPos = Math.floor(Math.random() * 4) + 1;
             var enemyXpos = 600;
             var enemyYpos = (canvas.height / 4) * enemyPos;
-            var enemySpeed = Math.floor(Math.random() * 10 - 5) + 5
+            var enemySpeed =  Math.floor(Math.random() * (8 - 5) + 5);
 
             var enemy = {
                 enemyXpos: enemyXpos,
                 enemyYpos: enemyYpos,
                 ENEMY_SIZE: ENEMY_SIZE,
-                enemySpeed: enemySpeed,
-                enemyColor: 'green'
+                enemySpeed: enemySpeed
             }
 
             enemies.push(enemy)
@@ -81,7 +83,7 @@
 
         function makeBullets() {
             const BULLET_SIZE = 5;
-            var bulletXpos = playerXpos
+            var bulletXpos = playerXpos + PLAYER_WIDTH * 2/3
             var bulletYpos = playerYpos + PLAYER_HEIGHT / 2
             var bulletSpeed = 4;
 
@@ -97,8 +99,9 @@
         }
 
         function mainloop() {
-            colorRect(0, 0, canvas.width, canvas.height, 'black');
+            drawImg(background, 0, 0, 1422, 798, 0, 0, 600, 600);
             drawImg(player, sourceXpos, sourceYpos, SOURCE_WIDTH, SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
+            colorRect(0, 595, 600, 5, 'grey')
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
             playerMove();
@@ -194,7 +197,7 @@
                 
                 sourceXpos = sprites[Math.floor(spriteNum)][0];
                 sourceYpos = sprites[Math.floor(spriteNum)][1];
-                spriteNum+= frameRate
+                spriteNum += frameRate
 
                 if(spriteNum > 3){
                     spriteNum=0;
@@ -209,14 +212,16 @@
 
                 if (enemy.enemyXpos < 0 - ENEMY_SIZE) {
                     enemy.enemyXpos = 600;
-                    enemy.enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
+                    enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0)
+                    enemy.enemySpeed = Math.floor(Math.random() * (8 - 5) + 5);
                 }
 
                 if (enemy.enemyXpos < playerXpos + PLAYER_WIDTH && enemy.enemyXpos + enemy.ENEMY_SIZE >
                     playerXpos && enemy.enemyYpos < playerYpos + PLAYER_HEIGHT && enemy.enemyYpos + enemy
                     .ENEMY_SIZE > playerYpos) {
-                    playerXpos = (600 - PLAYER_WIDTH) / 2
                     enemy.enemyXpos = canvas.width + 10;
+                    enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0);
+                    enemy.enemySpeed = Math.floor(Math.random() * (8 - 5) + 5);
                 }
             })
         }
@@ -227,7 +232,7 @@
         function bulletMove() {
             bullets.forEach(function (bullet, i, array) {
                 bullet.bulletXpos += bullet.bulletSpeed
-                if (bulletYpos > canvas.width) {
+                if (bulletYpos > canvas.width){
                     delete bullets[i]
                 }
                 enemies.forEach(function (enemy, i, array) {
@@ -239,7 +244,8 @@
                         .ENEMY_SIZE > bullet.bulletYpos) {
                         bullet.bulletYpos = canvas.width + 10;
                         enemy.enemyXpos = canvas.width + 10;
-
+                        enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0);
+                    enemy.enemySpeed = Math.floor(Math.random() * (8 - 5) + 5);
                     }
 
                 })
@@ -255,8 +261,7 @@
 
         function drawEnemies() {
             enemies.forEach(function (enemy, i) {
-                colorRect(enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE, 'green')
-
+                drawImg(enemySrc, 0, 0, 400, 400, enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE)
             })
         }
 
