@@ -113,8 +113,10 @@
             setInterval(mainloop, 1000 / 50);
             var username = prompt('Enter username')
             while (username == null || username == ""){
-                var username = prompt('Enter username')
+                var username = prompt('Please enter username')
             }
+            var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
+            
             if(level == "easy"){
                 totalEnemies = 3;
                 minEnemySpeed =3;
