@@ -112,7 +112,9 @@
             canvasContext = canvas.getContext('2d');
             setInterval(mainloop, 1000 / 50);
             var username = prompt('Enter username')
-            
+            while (username == null || username == ""){
+                var username = prompt('Enter username')
+            }
             if(level == "easy"){
                 totalEnemies = 3;
                 minEnemySpeed =3;
