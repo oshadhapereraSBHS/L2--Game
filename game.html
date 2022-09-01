@@ -74,7 +74,7 @@
         const ROAD_XPOS = 0;
 
         //variables for total for enemy & bullet, and whether enemy & bullet are being made - used to control how much enemies & bullets appear at the screen
-        var totalEnemies = 8;
+        var totalEnemies = 5;
         var makingEnemies = true;
         var totalBullets = 5;
         var makingBullets = true;
@@ -111,6 +111,19 @@
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
             setInterval(mainloop, 1000 / 50);
+
+            if(level == "easy"){
+                totalEnemies = 3;
+            } else if(level == "medium"){
+                totalEnemies = 5;
+            } else {
+                totalEnemies= 8;
+            }
+
+
+
+
+
         } //end of function
 
         //function for making enemy objects
