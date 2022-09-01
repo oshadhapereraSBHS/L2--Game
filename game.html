@@ -105,6 +105,8 @@
 
         //variable for level and username
         var level = "";
+        var time = 0;
+
 
         //when page is loading set canvas properties and run mainloop 50 times per second
         window.onload = function () {
@@ -126,12 +128,11 @@
 
             //when valid level is not entered, keep asking for level and converting it to lowercase to chack whether valid value was entered
             while(level !== 'easy' && level !== 'medium' && level !== 'hard'){
-                var level = prompt('Hello ' + username + '. Please enter level: Easy, Medium or Hard?')
+                var level = prompt('Hello ' + username + '. Please enter valid level: Easy, Medium or Hard?')
                 if(level !== null && level !== ""){
                     level = level.toLowerCase();
                 }
             }
-
 
 
             if(level == "easy"){
@@ -148,6 +149,7 @@
                 maxEnemySpeed = 12;
             }
 
+            alert('Use up arrow to jump and space bar to jump. Hitting a comet would lower your lives by 1. You have 3 lives and the aim is to survive for as long as possible.')
 
 
 
@@ -224,6 +226,13 @@
                 }
                 makingEnemies = false;
             }
+
+
+
+            setInterval(time++, 1000)
+
+
+
 
         } //end of function mainloop()
 
