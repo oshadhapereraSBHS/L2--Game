@@ -74,7 +74,7 @@
         const ROAD_XPOS = 0;
 
         //variables for total for enemy & bullet, and whether enemy & bullet are being made - used to control how much enemies & bullets appear at the screen
-        var totalEnemies = 5;
+        var totalEnemies = 8;
         var makingEnemies = true;
         var totalBullets = 5;
         var makingBullets = true;
@@ -102,6 +102,9 @@
         //variables for controlling speed of enemies
         var maxEnemySpeed = 9;
         var minEnemySpeed = 5;
+
+        //variable for level and username
+        var level = "";
 
         //when page is loading set canvas properties and run mainloop 50 times per second
         window.onload = function () {
