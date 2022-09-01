@@ -111,12 +111,29 @@
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
             setInterval(mainloop, 1000 / 50);
+            //variable for asking username
             var username = prompt('Enter username')
+            //keep asking for username till one is entered
             while (username == null || username == ""){
                 var username = prompt('Please enter username')
             }
+            //variable for asking level
             var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-            
+            //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
+            if(level !== null && level !== ""){
+                level = level.toLowerCase();
+            }
+
+            //when valid level is not entered, keep asking for level and converting it to lowercase to chack whether valid value was entered
+            while(level !== 'easy' && level !== 'medium' && level !== 'hard'){
+                var level = prompt('Hello ' + username + '. Please enter level: Easy, Medium or Hard?')
+                if(level !== null && level !== ""){
+                    level = level.toLowerCase();
+                }
+            }
+
+
+
             if(level == "easy"){
                 totalEnemies = 3;
                 minEnemySpeed =3;
