@@ -106,6 +106,7 @@
         //variable for level and username
         var level = "";
         var score = 0;
+        var lives = 3;
 
         //increase timer by 1 every 0.5 second
         setInterval(function(){score++}, 500)
@@ -344,7 +345,7 @@
                 //increase enemy x pos by enemy speed so they will move left on the screen
                 enemy.enemyXpos -= enemy.enemySpeed
 
-                //when player goes out the canvas, move it back to starting position, and randomise its y position and speed
+                //when enemy goes out the canvas, move it back to starting position, and randomise its y position and speed
                 if (enemy.enemyXpos < 0 - ENEMY_SIZE) {
                     enemy.enemyXpos = canvas.width;
                     enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0)
@@ -358,6 +359,7 @@
                     enemy.enemyXpos = canvas.width;
                     enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0);
                     enemy.enemySpeed = Math.floor(Math.random() * (maxEnemySpeed - minEnemySpeed) + minEnemySpeed);
+                    lives--;
                 }
             })
         } //end of function enemyMove()
