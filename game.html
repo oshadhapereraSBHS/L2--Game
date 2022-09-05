@@ -105,8 +105,10 @@
 
         //variable for level and username
         var level = "";
-        var time = 0;
+        var score = 0;
 
+        //increase timer by 1 every 0.5 second
+        setInterval(function(){score++}, 500)
 
         //when page is loading set canvas properties and run mainloop 50 times per second
         window.onload = function () {
@@ -228,10 +230,10 @@
             }
 
 
-
-            setInterval(time++, 1000)
-
-
+            // //display score and lives on screen
+            // canvasContext.font = '16pt Calibri';
+            // canvasContext.fillStyle = 'blue';
+            // canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
 
 
         } //end of function mainloop()
