@@ -22,13 +22,13 @@
 
         //constants for background properties
         //constants for background physical properties
-        const BACKGROUND_XPOS = 0;
-        const BACKGROUND_YPOS = 0;
+        const BACKGROUND_X_POS = 0;
+        const BACKGROUND_Y_POS = 0;
         const BACKGROUND_WIDTH = 600;
         const BACKGROUND_HEIGHT = 600;
         //constants and variables for player properties relating to source image
-        const BACKGROUND_SOURCE_XPOS = 0;
-        const BACKGROUND_SOURCE_YPOS = 0;
+        const BACKGROUND_SOURCE_X_POS = 0;
+        const BACKGROUND_SOURCE_Y_POS = 0;
         const BACKGROUND_SOURCE_WIDTH = 1422;
         const BACKGROUND_SOURCE_HEIGHT = 798;
 
@@ -54,8 +54,8 @@
         var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
         var enemySpeed = 4;
         //constants and variables for player properties relating to source image for the generation of changing sprites
-        const ENEMY_SOURCE_XPOS = 0;
-        const ENEMY_SOURCE_YPOS = 0;
+        const ENEMY_SOURCE_X_POS = 0;
+        const ENEMY_SOURCE_Y_POS = 0;
         const ENEMY_SOURCE_WIDTH = 400;
         const ENEMY_SOURCE_HEIGHT = 400;
 
@@ -69,9 +69,9 @@
 
         //constants for road image
         const ROAD_WIDTH = 600;
-        const ROAD_HEIGHT = 5;
-        const ROAD_YPOS = 600 - ROAD_HEIGHT;
-        const ROAD_XPOS = 0;
+        const ROAD_HEIGHT = 6;
+        const ROAD_Y_POS = 600 - ROAD_HEIGHT;
+        const ROAD_X_POS = 0;
 
         //variables for total for enemy & bullet, and whether enemy & bullet are being made - used to control how much enemies & bullets appear at the screen
         var totalEnemies = 5;
@@ -87,7 +87,7 @@
         //constant for the total number of sprites and variable for the sprite the player is currently in
         const SPRITES = 4;
         var spriteNum = 0;
-       
+
         //constants for key codes used in registering player input for movement and shooting bullets
         const UP_KEY = 38;
         const SPACE_KEY = 32;
@@ -189,7 +189,7 @@
             var bulletXpos = playerXpos + PLAYER_WIDTH * bulletStartXpos;
             var bulletYpos = playerYpos + PLAYER_HEIGHT / bulletStartYpos;
             var bulletSpeed = 4;
-            
+
             //making an object for each bullet and using previously defined properties in the bullet object
             var bullet = {
                 bulletXpos: bulletXpos,
@@ -203,12 +203,16 @@
             bullets.push(bullet)
         } //end of function makeBullets()
 
-        //mainloop that continuously runs every 50 seconds
-        function mainloop() {
+
+
+        
+            
+             //mainloop that continuously runs every 50 seconds
+        function mainloop() {if(lives > 0){
             //background image
-            drawImg(background, BACKGROUND_SOURCE_XPOS, BACKGROUND_SOURCE_YPOS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_XPOS, BACKGROUND_YPOS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+            drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
             //road image
-            colorRect(ROAD_XPOS, ROAD_YPOS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
+            colorRect(ROAD_X_POS, ROAD_Y_POS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
             //player sprites
             drawImg(player, playerSourceXpos, playerSourceYpos, PLAYER_SOURCE_WIDTH, PLAYER_SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
             //event listeners for pressing and releasing keys
@@ -238,9 +242,9 @@
             canvasContext.fillText('Lives: ' + lives, canvas.width * 0.85, 40);
 
 
-
+        }
         } //end of function mainloop()
-
+    
         //defining colorRect function used to draw quadrilateral shapes
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
@@ -270,7 +274,7 @@
         //event for when keys are released
         function keyReleased(evt) {
 
-            //change upKeyPress and spaceKeyPress to false (so stop moving player & making bullets) when each key is released   
+            //change upKeyPress and spaceKeyPress to false (so stop moving player & making bullets) when each key is released
             if (evt.keyCode == UP_KEY) {
                 upKeyPress = false;
             }
@@ -279,7 +283,7 @@
             }
         } //end of function keyReleased(evt)
 
-        
+
         //function for moving player
         function playerMove() {
 
@@ -303,14 +307,14 @@
 
             //for loop used in going through each sprite
             for(i=0; i<SPRITES; i++){
-                
+
                 //make a multidimensional array where each element in the previously defined sprites array now has two elements in them.
                 sprites[i] = new Array(2);
                 //first item in each element of sprites array will contain the width of each sprite in the source image. This allow the swapping of sprites by adding that width each time as the starting x position.
                 sprites[i][0] = PLAYER_SOURCE_WIDTH * i;
                 //second item in each element of sprites array will be 0 since there is only one row of sprites and the starting y pos does not need to changed.
                 sprites[i][1] = 0;
-                
+
                 //When player is jumping switch image back to Sprite 1 and maintain that sprite, so that player doesn't walk while jumping
                 if(playerYpos < playerStartYpos){
                     sprites[i][0] = PLAYER_SOURCE_WIDTH;
@@ -318,16 +322,16 @@
             }
         } //end of function playerMove()
 
-        
-        
+
+
 
         function playerAnimation(){
-            
+
             //constant for frame rate - this will be the rate at which the sprite is changed
-            const FRAME_RATE = 0.1;        
-            
+            const FRAME_RATE = 0.1;
+
             //access the relevent element (0, 1, 2 or 3 depending on which sprite it is currently on) in the sprites array as player loops through the array. Change source x position to the source width (element 1 of each element) so that the sprite will switch to each successive sprite. Change source y position to
-            playerSourceXpos = sprites[Math.floor(spriteNum)][0];    
+            playerSourceXpos = sprites[Math.floor(spriteNum)][0];
             playerSourceYpos = sprites[Math.floor(spriteNum)][1];
 
             //increase spriteNum by the frame rate so sprite will be changing at this rate
@@ -337,10 +341,10 @@
                 if(spriteNum > 3){
                     spriteNum = 0;
                 }
-                
+
         } //end of function playerAnimation()
 
- 
+
         function enemyMove() {
             //access each element in enemies array
             enemies.forEach(function (enemy, i, array) {
@@ -366,8 +370,8 @@
             })
         } //end of function enemyMove()
 
-        
-    
+
+
         function bulletMove() {
             //access each bullet element in bullets array
             bullets.forEach(function (bullet, i, array) {
