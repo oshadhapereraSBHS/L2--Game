@@ -208,9 +208,11 @@
         
             
              //mainloop that continuously runs every 50 seconds
-        function mainloop() {if(lives > 0){
-            //background image
+        function mainloop() {            
             drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+
+            if(lives > 0){
+            //background image
             //road image
             colorRect(ROAD_X_POS, ROAD_Y_POS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
             //player sprites
@@ -225,6 +227,7 @@
             playerAnimation();
             drawEnemies();
             drawBullets();
+            
 
             //for loop that makes enemies - by running makeEnemies() function - only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
             if (makingEnemies == true) {
@@ -241,10 +244,37 @@
             canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
             canvasContext.fillText('Lives: ' + lives, canvas.width * 0.85, 40);
 
+            
+         } else {
+            // canvasContext.font = '32pt Calibri'; //sets font
+            //     canvasContext.fillStyle = 'purple'; //sets font colour
+            //     canvasContext.shadowBlur = 2; //sets shadow properties
+            //     canvasContext.shadowColor = 'white'
 
+
+            //     canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
+            //     canvasContext.fillText(username + ', Your score is ' + playerScore, (canvas.width - username.length*32) * 0.25, canvas.height * 0.55); //displays current score
+            //     canvasContext.fillText('Your high score is ' + localStorage.getItem('highscore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
+            //     //display 'game over' and score
+        //     calculateHighScore();
+        //     canvasContext.font = '16pt Calibri';
+        //     canvasContext.fillStyle = 'blue';
+        //     canvasContext.fillText('Highscore: ' + localStorage.getItem('highScore'), canvas.width * 0.02, 80);
         }
         } //end of function mainloop()
     
+        // function calculateHighScore() {
+        //     var highScore = localStorage.getItem('highScore')
+        //     if(score > highScore){
+        //         localStorage.setItem('highScore', score)
+        //     }
+        //     if(highScore == null){
+        //         localStorage.setItem('highScore', 0)
+        //     }
+        // }
+
+
+
         //defining colorRect function used to draw quadrilateral shapes
         function colorRect(x, y, w, h, c) {
             canvasContext.fillStyle = c;
