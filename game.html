@@ -107,7 +107,8 @@
         var level = "";
         var score = 0;
         var lives = 3;
-        var username = ""
+        var username = "";
+        var bulletCount=0;
 
         //increase timer by 1 every 0.5 second
         
@@ -298,6 +299,7 @@
             if (evt.keyCode == SPACE_KEY) {
                 spaceKeyPress = true;
                 makeBullets();
+                bulletCount++;
             }
         } //end of function keyPressed()
 
