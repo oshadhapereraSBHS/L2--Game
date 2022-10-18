@@ -107,12 +107,15 @@
         var level = "";
         var score = 0;
         var lives = 3;
+        var username = ""
 
         //increase timer by 1 every 0.5 second
-        setInterval(function(){score++}, 500)
-
+        
+        setInterval(function(){if(lives > 0){score++}}, 500)
+        
         //when page is loading set canvas properties and run mainloop 50 times per second
         window.onload = function () {
+
             canvas = document.getElementById('gameCanvas');
             canvasContext = canvas.getContext('2d');
             setInterval(mainloop, 1000 / 50);
@@ -246,6 +249,7 @@
 
             
          } else {
+            calculateHighScore();
             canvasContext.font = '32pt Calibri'; //sets font
                 canvasContext.fillStyle = 'purple'; //sets font colour
                 canvasContext.shadowBlur = 2; //sets shadow properties
@@ -253,25 +257,21 @@
 
 
                 canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
-                canvasContext.fillText(username + ', Your score is ' + playerScore, (canvas.width - username.length*32) * 0.25, canvas.height * 0.55); //displays current score
-                canvasContext.fillText('Your high score is ' + localStorage.getItem('highscore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
-                //display 'game over' and score
-        //     calculateHighScore();
-        //     canvasContext.font = '16pt Calibri';
-        //     canvasContext.fillStyle = 'blue';
-        //     canvasContext.fillText('Highscore: ' + localStorage.getItem('highScore'), canvas.width * 0.02, 80);
+                canvasContext.fillText(username + ', Your score is ' + score, (canvas.width - username.length*32) * 0.25, canvas.height * 0.55); //displays current score
+                canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
+                
         }
         } //end of function mainloop()
     
-        // function calculateHighScore() {
-        //     var highScore = localStorage.getItem('highScore')
-        //     if(score > highScore){
-        //         localStorage.setItem('highScore', score)
-        //     }
-        //     if(highScore == null){
-        //         localStorage.setItem('highScore', 0)
-        //     }
-        // }
+        function calculateHighScore() {
+            var highScore = localStorage.getItem('highScore')
+            if(score > highScore){
+                localStorage.setItem('highScore', score)
+            }
+            if(highScore == null){
+                localStorage.setItem('highScore', 0)
+            }
+        }
 
 
 
