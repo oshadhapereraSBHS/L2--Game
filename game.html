@@ -127,7 +127,7 @@
                 var username = prompt('Please enter username')
             }
             //variable for asking level
-            var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
+            var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?', 'easy')
             //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
             if(level !== null && level !== ""){
                 level = level.toLowerCase();
@@ -159,7 +159,8 @@
                 totalBullets = 10;
             }
 
-            alert('Use up arrow to jump and space bar to jump. Hitting a comet would lower your lives by 1. You have 3 lives and the aim is to survive for as long as possible.')
+            alert('Use up arrow to jump and space bar to shoot. You have ' + totalBullets + ' bullets available.')
+            alert('Hitting a comet would lower your lives by 1. You have 3 lives and the aim is to survive for as long as possible.')
 
 
 
@@ -398,7 +399,7 @@
                 //when enemy goes out the canvas, move it back to starting position, and randomise its y position and speed
                 if (enemy.enemyXpos < 0 - ENEMY_SIZE) {
                     enemy.enemyXpos = canvas.width;
-                    enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0)
+                    enemy.enemyYpos = Math.floor(Math.random() * ((canvas.height - ENEMY_SIZE - ROAD_HEIGHT) - 0) + 0)
                     enemy.enemySpeed = Math.floor(Math.random() * (maxEnemySpeed - minEnemySpeed) + minEnemySpeed);
                 }
 
@@ -407,7 +408,7 @@
                     playerXpos && enemy.enemyYpos < playerYpos + PLAYER_HEIGHT && enemy.enemyYpos + enemy
                     .ENEMY_SIZE > playerYpos) {
                     enemy.enemyXpos = canvas.width;
-                    enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0);
+                    enemy.enemyYpos = Math.floor(Math.random() * ((canvas.height - ENEMY_SIZE - ROAD_HEIGHT) - 0) + 0);
                     enemy.enemySpeed = Math.floor(Math.random() * (maxEnemySpeed - minEnemySpeed) + minEnemySpeed);
                     lives--;
                 }
