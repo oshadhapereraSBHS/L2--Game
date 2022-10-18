@@ -76,7 +76,7 @@
         //variables for total for enemy & bullet, and whether enemy & bullet are being made - used to control how much enemies & bullets appear at the screen
         var totalEnemies = 5;
         var makingEnemies = true;
-        var totalBullets = 5;
+        var totalBullets = 10;
         var makingBullets = true;
 
         //arrays for enemy, bullets and player sprites
@@ -146,14 +146,17 @@
                 totalEnemies = 3;
                 minEnemySpeed =3;
                 maxEnemySpeed = 5;
+                totalBullets = 20;
             } else if(level == "medium"){
                 totalEnemies = 5;
                 minEnemySpeed = 5;
                 maxEnemySpeed = 8;
+                totalBullets = 15;
             } else {
                 totalEnemies= 8;
                 minEnemySpeed = 8;
                 maxEnemySpeed = 12;
+                totalBullets = 10;
             }
 
             alert('Use up arrow to jump and space bar to jump. Hitting a comet would lower your lives by 1. You have 3 lives and the aim is to survive for as long as possible.')
@@ -226,11 +229,9 @@
             document.addEventListener('keyup', keyReleased);
             //run following functions in mainloop : movement of player, bullets & enemy, drawing of enemies & bullets, and animation of player sprites
             playerMove();
-            bulletMove();
             enemyMove();
             playerAnimation();
             drawEnemies();
-            drawBullets();
             
 
             //for loop that makes enemies - by running makeEnemies() function - only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
@@ -240,6 +241,17 @@
                 }
                 makingEnemies = false;
             }
+
+            if (bulletCount <= totalBullets) { //if there are bullets available
+                if(makingBullets==true){
+                    makeBullets();    
+                    makingBullets = false;
+                }
+                
+            
+            }
+                drawBullets();
+                bulletMove(); //moves bullet
 
 
             //display score and lives on screen
