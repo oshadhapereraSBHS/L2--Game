@@ -274,10 +274,16 @@
                 canvasContext.fillText(username + ', Your score is ' + score, (canvas.width - username.length*32) * 0.25, canvas.height * 0.55); //displays current score
                 canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
                 setTimeout(function() { //asks the player whether they want to play again after 1.5 seconds
+
+                    if(lives <= 0){
                         var playAgain = confirm("Play again?") //var for storing user preference for playing again
                         if (playAgain == true) {
                             location.reload(); //page will reload if they say they want to play again. nothing will happen if they press cancel.
                         }
+                        lives = 2;
+                    }
+
+                        
 
                     }, 1000); 
         }
