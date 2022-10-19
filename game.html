@@ -77,7 +77,7 @@
         var totalEnemies = 5;
         var makingEnemies = true;
         var totalBullets = 10;
-        var makingBullets = true;
+        var makingBullets = false;
 
         //arrays for enemy, bullets and player sprites
         var enemies = [];
@@ -109,6 +109,7 @@
         var lives = 3;
         var username = "";
         var bulletCount=0;
+        var bulletsRemaining = 5;
 
         //increase timer by 1 every 0.5 second
         
@@ -127,7 +128,7 @@
                 var username = prompt('Please enter username')
             }
             //variable for asking level
-            var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?', 'easy')
+            var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
             //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
             if(level !== null && level !== ""){
                 level = level.toLowerCase();
@@ -233,7 +234,7 @@
             enemyMove();
             playerAnimation();
             drawEnemies();
-            
+            calculateBulletsRemaining();
 
             //for loop that makes enemies - by running makeEnemies() function - only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
             if (makingEnemies == true) {
@@ -244,21 +245,23 @@
             }
 
             if (bulletCount <= totalBullets) { //if there are bullets available
+                 //moves bullet
                 if(makingBullets==true){
-                    makeBullets();    
+                            makeBullets();    
                     makingBullets = false;
                 }
-                
+                drawBullets();    
             
             }
-                drawBullets();
-                bulletMove(); //moves bullet
+            
+            bulletMove();
 
 
             //display score and lives on screen
             canvasContext.font = '16pt Calibri';
             canvasContext.fillStyle = 'blue';
             canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
+            canvasContext.fillText('Bullets left: ' + bulletsRemaining, canvas.width * 0.5, 40);
             canvasContext.fillText('Lives: ' + lives, canvas.width * 0.85, 40);
 
             
@@ -271,7 +274,7 @@
 
 
                 canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
-                canvasContext.fillText(username + ', Your score is ' + score, (canvas.width - username.length*32) * 0.25, canvas.height * 0.55); //displays current score
+                canvasContext.fillText(username + 'Your score is ' + score, (canvas.width - username.length*32) * 0.3, canvas.height * 0.55); //displays current score
                 canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
                 setTimeout(function() { //asks the player whether they want to play again after 1.5 seconds
 
@@ -299,7 +302,17 @@
             }
         }
 
+        function calculateBulletsRemaining(){
 
+if(bulletCount <= totalBullets){
+    bulletsRemaining = totalBullets - bulletCount;
+} else {
+bulletsRemaining=0;
+}
+
+    
+    
+}
 
         //defining colorRect function used to draw quadrilateral shapes
         function colorRect(x, y, w, h, c) {
