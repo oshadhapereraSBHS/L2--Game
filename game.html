@@ -103,16 +103,18 @@
         var maxEnemySpeed = 9;
         var minEnemySpeed = 5;
 
-        //variable for level and username
+        //variable for level, score, lives and username
         var level = "";
         var score = 0;
         var lives = 3;
         var username = "";
+
+        //variables for counting used and remaining bullets
         var bulletCount=0;
         var bulletsRemaining = 5;
 
-        //increase timer by 1 every 0.5 second
         
+        //increase timer by 1 every 0.5 second
         setInterval(function(){if(lives > 0){score++}}, 500)
         
         //when page is loading set canvas properties and run mainloop 50 times per second
@@ -142,7 +144,7 @@
                 }
             }
 
-
+            //set different values for the total enemies, total bullets and max and min speeds for enemies, based on the level chosen
             if(level == "easy"){
                 totalEnemies = 3;
                 minEnemySpeed =3;
@@ -160,6 +162,7 @@
                 totalBullets = 10;
             }
 
+            //alerts to display intructions
             alert('Use up arrow to jump and space bar to shoot. You have ' + totalBullets + ' bullets available.')
             alert('Hitting a comet would lower your lives by 1. You have 3 lives and the aim is to survive for as long as possible.')
 
@@ -218,10 +221,11 @@
             
              //mainloop that continuously runs every 50 seconds
         function mainloop() {            
+            //background image
             drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
 
+            //if condition that checks whether the player is still alive
             if(lives > 0){
-            //background image
             //road image
             colorRect(ROAD_X_POS, ROAD_Y_POS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
             //player sprites
@@ -229,7 +233,7 @@
             //event listeners for pressing and releasing keys
             document.addEventListener('keydown', keyPressed);
             document.addEventListener('keyup', keyReleased);
-            //run following functions in mainloop : movement of player, bullets & enemy, drawing of enemies & bullets, and animation of player sprites
+            //run following functions in mainloop : movement of player & enemy, drawing of enemies, animation of player sprites, and calculating remaining bullets
             playerMove();
             enemyMove();
             playerAnimation();
@@ -244,8 +248,10 @@
                 makingEnemies = false;
             }
 
-            if (bulletCount <= totalBullets) { //if there are bullets available
-                 //moves bullet
+            //if there are bullets left
+            if (bulletCount <= totalBullets) {
+                //move bullets, draw bullets images, and make bullet objects if makingBullets is true
+                bulletMove();
                 if(makingBullets==true){
                             makeBullets();    
                     makingBullets = false;
@@ -254,23 +260,26 @@
             
             }
             
-            bulletMove();
+            
 
 
-            //display score and lives on screen
+            //display score, remaining bullets, and lives on screen
             canvasContext.font = '16pt Calibri';
-            canvasContext.fillStyle = 'blue';
+            canvasContext.fillStyle = 'white';
+            canvasContext.shadowBlur = 2; //sets shadow properties
+                canvasContext.shadowColor = 'black'
             canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
-            canvasContext.fillText('Bullets left: ' + bulletsRemaining, canvas.width * 0.5, 40);
+            canvasContext.fillText('Bullets left: ' + bulletsRemaining, canvas.width * 0.4, 40);
             canvasContext.fillText('Lives: ' + lives, canvas.width * 0.85, 40);
 
             
          } else {
+            //calculate high score
             calculateHighScore();
             canvasContext.font = '32pt Calibri'; //sets font
-                canvasContext.fillStyle = 'purple'; //sets font colour
+                canvasContext.fillStyle = 'white'; //sets font colour
                 canvasContext.shadowBlur = 2; //sets shadow properties
-                canvasContext.shadowColor = 'white'
+                canvasContext.shadowColor = 'black'
 
 
                 canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
@@ -283,7 +292,7 @@
                         if (playAgain == true) {
                             location.reload(); //page will reload if they say they want to play again. nothing will happen if they press cancel.
                         }
-                        lives = 2;
+                        lives = 2; //setting lives back to 2 so the prompt won't keep looping (since the prompt only comes up when lives < 1)
                     }
 
                         
@@ -293,17 +302,20 @@
         } //end of function mainloop()
     
         function calculateHighScore() {
+            //set var highscore to the highscore stored in local storage
             var highScore = localStorage.getItem('highScore')
+            //when user achieves a new high score, update the stored high score to reflect the new one
             if(score > highScore){
                 localStorage.setItem('highScore', score)
             }
+            //when highscore is null, set it to zero
             if(highScore == null){
                 localStorage.setItem('highScore', 0)
             }
         }
 
         function calculateBulletsRemaining(){
-
+//update no. of remaining bullets when bullets are left. Otherwise, set it to zero so that a negative value won't be displayed on the canvas
 if(bulletCount <= totalBullets){
     bulletsRemaining = totalBullets - bulletCount;
 } else {
