@@ -22,9 +22,20 @@
 
 </div>
 
+<div class="help">
+  <button id="help" onlick="help()">Help</button>
+  <p id="helpText">
 
+  </p>
+</div>
 </div>
     <style>
+    #help {
+      padding: 1%;
+    }
+    p {
+      font-size: 13px;
+    }
     /*custom font*/
     @font-face {
         font-family: Simple;
@@ -40,7 +51,7 @@
     }
 
 /*formatting for play/pause buttons*/
-    button{
+    #playButton, #pauseButton{
     height:30px;
     width: 30px;
     font-size: 20px;
@@ -65,6 +76,13 @@ text-align: right;
   grid-row: 2/3;
   grid-column: 2/4;
 }
+
+.help {
+  grid-row: 3/4;
+  grid-column: 2/4;
+  margin-top: 2%;
+}
+
 
 /*margin, paddings and fonts for whole page*/
 * {
@@ -253,7 +271,10 @@ text-align: right;
 
         } //end of function
 
-
+function help(){
+  document.getElementById("helpText").innerHTML = "<br />" + 'Use up arrow to jump and space bar to shoot.' + "<br />" + "<br />" + ' You have ' + totalBullets + ' bullets available.' + "<br />" +"<br />" +  ' Hitting a comet would lower your lives by 1. ' + "<br />" +"<br />" +  'You have 3 lives and the aim is to survive for as long as possible. ' + "<br />" +"<br />" +  'You can replay the game to improve your high score.' + "<br />"
+   + "<br />" + ' Press play button to start.' + "<br />"
+}
         //function for making enemy objects
         function makeEnemies() {
             //defining enemy properties. enemyPos and enemySpeed are randomised for each enemy will come from a different place with a different speed to make the game more interesting and dynamic. enemyYpos is calculated to make the enemies come from the left side of the screen without going out of the screen - hence why the enmy size and road heigh is subtracted from the canvas height
@@ -315,16 +336,18 @@ text-align: right;
             }
         }
 
-s
+
 
              //mainloop that continuously runs every 50 seconds
         function mainloop() {
           //background image
           drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
           	music.pause();
+
           if(lives>0){
           document.getElementById('playButton').addEventListener("click", play);
           document.getElementById('pauseButton').addEventListener("click", pause);
+          document.getElementById('help').addEventListener("click", help);
           //player sprites
           drawImg(player, playerSourceXpos, playerSourceYpos, PLAYER_SOURCE_WIDTH, PLAYER_SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
           //road image
@@ -488,6 +511,15 @@ enemies.forEach(function (enemy, i, array) {delete enemies[i]})
             }
         } //end of function keyReleased(evt)
 
+
+
+        function play(evt){
+          playGame=true;
+        }
+
+        function pause(evt){
+          playGame = false;
+        }
 
         //function for moving player
         function playerMove() {
