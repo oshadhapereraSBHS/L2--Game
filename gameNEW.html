@@ -456,11 +456,10 @@ enemies.forEach(function (enemy, i, array) {delete enemies[i]})
                 upKeyPress = true;
             }
 
-            //make spaceKeyPress = true (then used to run make bullet objects) when space key is pressed (when the keycode of the space key is detected)
+            //make spaceKeyPress = true (then used to run make bullet objects) when space key is pressed (when the keycode of the space key is detected). This will only run if playGame == true (so not when game is paused). It will also play the bullet sound effect since preseeing space bar indicates the player has shot a bullet.
             if (evt.keyCode == SPACE_KEY && playGame==true) {
                 spaceKeyPress = true;
                 bulletSound.play();
-
                 makeBullets();
                 bulletCount++;
             }
