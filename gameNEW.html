@@ -1,18 +1,22 @@
 <!doctype html>
 <meta charset="UTF-8">
 <body>
+
+<!--div for the whole layout-->
 <div id="container">
+  <!--title-->
   <div class="title">
   <h1>Space Walk</h1>
 </div>
 
+<!--div for play and pause buttons. unicodes are used to get the symbols-->
 <div class="buttons">
   <button id="playButton">&#x23f5;</button>
   <button id="pauseButton">&#x23f8;</button>
 
 </div>
 
-
+<!--canvas-->
 <div class="canvas">
   <canvas id="gameCanvas" width="600" height="600"></canvas>
 
@@ -21,10 +25,13 @@
 
 </div>
     <style>
+    /*custom font*/
     @font-face {
         font-family: Simple;
         src: url(Simple.ttf);
     }
+
+    /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
     #container{
       display: grid;
       grid-template-columns: 1fr 300px 297px 1fr;
@@ -32,11 +39,13 @@
 
     }
 
+/*formatting for play/pause buttons*/
     button{
     height:30px;
     width: 30px;
     font-size: 20px;
     }
+
 .title {
   grid-row: 1/2;
   grid-column: 2/3;
@@ -56,8 +65,9 @@ text-align: right;
   grid-row: 2/3;
   grid-column: 2/4;
 }
-* {
 
+/*margin, paddings and fonts for whole page*/
+* {
   margin:0;
   padding:0;
   font-family: 'Simple', sans-serif;
@@ -375,8 +385,8 @@ if(playGame==true){
 
          } else {
             //calculate high score
-            //play gma eover sound effect
             gameOver.play();
+            //play game over sound effect
             calculateHighScore();
             canvasContext.font = '32pt Calibri'; //sets font
                 canvasContext.fillStyle = 'white'; //sets font colour
