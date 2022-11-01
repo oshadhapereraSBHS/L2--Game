@@ -33,9 +33,14 @@
 
   <style>
 
-    /*padding for help button*/
+    /*padding for help button and top row (heading and play/pasue buttons)*/
     #help {
       padding: 1%;
+    }
+
+    .title,
+    .buttons {
+      margin-top: 2%;
     }
 
     /*font size for text*/
@@ -46,7 +51,7 @@
     /*custom font*/
     @font-face {
       font-family: Simple;
-      src: url(Simple.ttf);
+      src: url(fonts/Simple.ttf);
     }
 
     /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
@@ -80,11 +85,6 @@
 
     }
 
-    .title,
-    .buttons {
-      margin-top: 2%;
-    }
-
     .canvas {
       grid-row: 2/3;
       grid-column: 2/4;
@@ -113,28 +113,28 @@
     //variables for adding images for player, enemy and background
     //player
     var player = new Image();
-    player.src = "spritesheet.png"
+    player.src = "images/spritesheet.png"
 
     //enemy
     var enemySrc = new Image();
-    enemySrc.src = "enemy.png"
+    enemySrc.src = "images/enemy.png"
 
     //background
     var background = new Image();
-    background.src = "bg.png"
+    background.src = "images/bg.png"
 
     //variables for adding sounds
     //sound effect for bullets
     var bulletSound = document.createElement("audio")
-    bulletSound.src = "bulletsound.mp4"
+    bulletSound.src = "music/bulletsound.mp4"
 
     //background music
     var music = document.createElement("audio")
-    music.src = "music.mp4"
+    music.src = "music/music.mp4"
 
     //game over sound effect
     var gameOver = document.createElement("audio")
-    gameOver.src = "gameover.mp4"
+    gameOver.src = "music/gameover.mp4"
 
     //constants for background properties
     //constants for background physical properties
@@ -298,7 +298,8 @@
       document.getElementById("helpText").innerHTML = "<br />" + 'Use up arrow to jump and space bar to shoot.' + "<br />" + "<br />" + ' You have ' + totalBullets + ' bullets available.' + "<br />" + "<br />" +
         ' Hitting a comet would lower your lives by 1. ' + "<br />" + "<br />" + 'You have 3 lives and the aim is to survive for as long as possible. ' + "<br />" + "<br />" + 'You can replay the game to improve your high score.' + "<br />" +
         "<br />" + ' Press play button to start.' + "<br />"
-    }
+    }//end of function help()
+
     //function for making enemy objects
     function makeEnemies() {
       //defining enemy properties. enemyPos and enemySpeed are randomised for each enemy will come from a different place with a different speed to make the game more interesting and dynamic. enemyYpos is calculated to make the enemies come from the left side of the screen without going out of the screen - hence why the enmy size and road heigh is subtracted from the canvas height
@@ -363,7 +364,7 @@
         //if lives are not left, show the grey rectangle
         colorRect((canvas.width - 100) / 2, 50, 100, 5, 'lightGrey')
       }
-    }
+    }//end of function progress()
 
 
 
@@ -410,7 +411,7 @@
           //play background music
           music.play();
 
-          //event listeners for pressing and releasing keys
+          //event listeners for pressing and releasing keys. This is not added with other event listeners because these control keys should not be available when pause is pressed
           document.addEventListener('keydown', keyPressed);
           document.addEventListener('keyup', keyReleased);
           //run following functions in mainloop : movement of player & enemy, animation of player sprites, and calculating remaining bullets
@@ -428,10 +429,7 @@
               makingBullets = false;
             }
             drawBullets();
-
           }
-
-
         }
 
 
@@ -480,7 +478,7 @@
           })
         }
       }
-    }
+    }//end of function reload()
 
     function calculateHighScore() {
       //set var highscore to the highscore stored in local storage
@@ -548,12 +546,12 @@
     //when play button is pressed, playGame = true
     function play(evt) {
       playGame = true;
-    }
+    }//end of function play(evt)
 
     //when pause button is pressed, playGame = false
     function pause(evt) {
       playGame = false;
-    }
+    }//end of function pause()
 
     //function for moving player
     function playerMove() {
