@@ -215,7 +215,22 @@
             bullets.push(bullet)
         } //end of function makeBullets()
 
+        function progress(){
+            if(lives == 3){
+                colorRect((canvas.width-100)/2, 50, 100, 5, 'red')
+                
+            } else if (lives == 2) {
+                colorRect((canvas.width-100)/2,50, 66, 5, 'red')
+                colorRect((canvas.width-100)/2 + 66, 50, 34, 5, 'lightGrey')
 
+            } else if (lives == 1){
+                colorRect((canvas.width-100)/2,50, 33, 5, 'red')
+                colorRect((canvas.width-100)/2 + 33, 50, 67, 5, 'lightGrey')
+
+            } else {
+                colorRect((canvas.width-100)/2, 50, 100, 5, 'lightGrey')
+            }
+        }
 
         
             
@@ -226,6 +241,7 @@
 
             //if condition that checks whether the player is still alive
             if(lives > 0){
+            progress();
             //road image
             colorRect(ROAD_X_POS, ROAD_Y_POS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
             //player sprites
@@ -262,16 +278,15 @@
             
             
 
-
             //display score, remaining bullets, and lives on screen
             canvasContext.font = '16pt Calibri';
             canvasContext.fillStyle = 'white';
             canvasContext.shadowBlur = 2; //sets shadow properties
                 canvasContext.shadowColor = 'black'
             canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
-            canvasContext.fillText('Bullets left: ' + bulletsRemaining, canvas.width * 0.4, 40);
-            canvasContext.fillText('Lives: ' + lives, canvas.width * 0.85, 40);
+            canvasContext.fillText('Lives: ' + lives, canvas.width * 0.45, 40);
 
+            canvasContext.fillText('Bullets: ' + bulletsRemaining, canvas.width * 0.8, 40);
             
          } else {
             //calculate high score
@@ -312,19 +327,16 @@
             if(highScore == null){
                 localStorage.setItem('highScore', 0)
             }
-        }
+        } //end of function calculateHighScore()
 
         function calculateBulletsRemaining(){
-//update no. of remaining bullets when bullets are left. Otherwise, set it to zero so that a negative value won't be displayed on the canvas
-if(bulletCount <= totalBullets){
-    bulletsRemaining = totalBullets - bulletCount;
-} else {
-bulletsRemaining=0;
-}
-
-    
-    
-}
+            //update no. of remaining bullets when bullets are left. Otherwise, set it to zero so that a negative value won't be displayed on the canvas
+            if(bulletCount <= totalBullets){
+                bulletsRemaining = totalBullets - bulletCount;
+            } else {
+            bulletsRemaining=0;
+            }
+        } //end of function calculateBulletsRemaining()
 
         //defining colorRect function used to draw quadrilateral shapes
         function colorRect(x, y, w, h, c) {
