@@ -50,6 +50,23 @@ function makeBullets() {
 
         })
 
+        //for each enemy element
+        coins.forEach(function(coin, i, array) {
+
+          //if coin is touching bullet, move that coin out of the canvas and randomise its y pos and speed. Also take bullet out of the canvas so it will be deleted
+          if (coin.coinXpos < bullet.bulletXpos + bullet.BULLET_SIZE && coin.coinXpos +
+            coin.COIN_SIZE >
+            bullet.bulletXpos && coin.coinYpos < bullet.bulletYpos + bullet.BULLET_SIZE &&
+            coin.coinYpos + coin
+            .COIN_SIZE > bullet.bulletYpos) {
+            bullet.bulletYpos = canvas.width;
+            coin.coinXpos = canvas.width;
+            coin.coinYpos = Math.floor(Math.random() * (canvas.height - 0) + 0);
+            coin.coinSpeed = Math.floor(Math.random() * (maxCoinSpeed - minCoinSpeed) + minCoinSpeed);
+          }
+
+        })
+
         //remove undefined (e.g. deleted) enemy elements from their array. This will make it easier to count total enemy numbers and total bullet numbers.
         enemies = enemies.filter(item => item !== undefined);
         bullets = bullets.filter(item => item !== undefined);

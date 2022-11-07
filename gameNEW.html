@@ -41,9 +41,9 @@
   <script src="enemy.js"></script>
   <script src="bullet.js"></script>
   <script src="menu.js"></script>
+  <script src="coins.js"></script>
 
   <script>
-
     //when page is loading set canvas properties and run mainloop 50 times per second
     window.onload = function() {
       canvas = document.getElementById('gameCanvas');
@@ -54,67 +54,75 @@
       askUsername();
 
 
-askLevel();
+      askLevel();
 
-if(validLevel && validUsername){
-      //alerts to display intructions
-      alert('Use up arrow to jump and space bar to shoot. \nYou have ' + totalBullets + ' bullets available.')
-      alert('Hitting a comet would lower your lives by 1. \nYou have 3 lives and the aim is to survive for as long as possible.')
-      alert('Press Ok, and then click play button to start.')
+      if (validLevel && validUsername) {
+        //alerts to display intructions
+        alert('Use up arrow to jump and space bar to shoot. \nYou have ' + totalBullets + ' bullets available.')
+        alert('Hitting a comet would lower your lives by 1. \nYou have 3 lives and the aim is to survive for as long as possible.')
+        alert('Press Ok, and then click play button to start.')
 
-}
+      }
     } //end of function
 
-        //mainloop that continuously runs every 50 seconds
-        function mainloop() {
-          //background image
-          drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
-          //pause music when pause button is pressed
-          music.pause();
+    //mainloop that continuously runs every 50 seconds
+    function mainloop() {
+      //background image
+      drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+      //pause music when pause button is pressed
+      music.pause();
 
-          if (lives > 0) {
-    gameStatus();
-            //drawing staus bar
-            progress();
-            //drawing enemy objects
-            drawEnemies();
+      if (lives > 0) {
+        gameStatus();
+        //drawing staus bar
+        progress();
+        //drawing enemy objects
+        drawEnemies();
+        drawCoins();
+
+        //for loop that makes enemies - by running makeEnemies() function - only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
+        if (makingEnemies == true) {
+          for (i = 0; i < totalEnemies; i++) {
+            makeEnemies();
+          }
+          makingEnemies = false;
+        }
+
+        if (makingCoins == true) {
+          for (i = 0; i < totalCoins; i++) {
+            makeCoins();
+          }
+          makingCoins = false;
+        }
+
+        //if play button is pressed
+        if (playGame == true) {
+          //play background music
+          music.play();
+
+          //event listeners for pressing and releasing keys. This is not added with other event listeners because these control keys should not be available when pause is pressed
+          document.addEventListener('keydown', keyPressed);
+          document.addEventListener('keyup', keyReleased);
+          //run following functions in mainloop : movement of player & enemy, animation of player sprites, and calculating remaining bullets
+          playerMove();
+          enemyMove();
+          coinMove();
+          playerAnimation();
+          calculateBulletsRemaining();
+
+          bulletsLeft()
+        }
 
 
-            //for loop that makes enemies - by running makeEnemies() function - only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
-            if (makingEnemies == true) {
-              for (i = 0; i < totalEnemies; i++) {
-                makeEnemies();
-              }
-              makingEnemies = false;
-            }
 
-            //if play button is pressed
-            if (playGame == true) {
-              //play background music
-              music.play();
+      } else {
+        //play game over sound effect
+        gameOver.play();
+        //calculate high score
+        calculateHighScore();
+        endScreen();
+      } //end of function mainloop()
 
-              //event listeners for pressing and releasing keys. This is not added with other event listeners because these control keys should not be available when pause is pressed
-              document.addEventListener('keydown', keyPressed);
-              document.addEventListener('keyup', keyReleased);
-              //run following functions in mainloop : movement of player & enemy, animation of player sprites, and calculating remaining bullets
-              playerMove();
-              enemyMove();
-              playerAnimation();
-              calculateBulletsRemaining();
-
-    bulletsLeft()
-            }
-
-
-
-          } else {
-            //play game over sound effect
-            gameOver.play();
-            //calculate high score
-            calculateHighScore();
-    endScreen();
-        } //end of function mainloop()
-
-}
+    }
   </script>
 </body>
