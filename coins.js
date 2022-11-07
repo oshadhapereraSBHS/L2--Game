@@ -41,7 +41,7 @@ function coinMove() {
       coin.coinXpos = canvas.width;
       coin.coinYpos = Math.floor(Math.random() * ((canvas.height - COIN_SIZE - ROAD_HEIGHT) - 0) + 0);
       coin.coinSpeed = Math.floor(Math.random() * (maxcoinSpeed - mincoinSpeed) + mincoinSpeed);
-      totalBullets = totalBullets+5;
+      totalBullets = totalBullets + 5;
     }
   })
 } //end of function coinMove()
