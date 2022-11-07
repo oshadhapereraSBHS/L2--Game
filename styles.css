@@ -29,6 +29,8 @@
 
   }
 
+
+
   /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
   #container {
     display: grid;
