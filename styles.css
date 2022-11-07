@@ -1,0 +1,70 @@
+  /*padding for help button and top row (heading and play/pasue buttons)*/
+  #help {
+    padding: 1%;
+  }
+
+  .title,
+  .buttons {
+    margin-top: 2%;
+  }
+
+  /*font size for text*/
+  p {
+    font-size: 13px;
+  }
+
+  /*custom font*/
+  @font-face {
+    font-family: Simple;
+    src: url(fonts/Simple.ttf);
+  }
+
+  /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
+  #container {
+    display: grid;
+    grid-template-columns: 1fr 300px 297px 1fr;
+    grid-gap: 3px;
+
+  }
+
+  /*formatting for play/pause buttons*/
+  #playButton,
+  #pauseButton {
+    height: 30px;
+    width: 30px;
+    font-size: 20px;
+  }
+
+  /*positioning divs in the grid layout*/
+  .title {
+    grid-row: 1/2;
+    grid-column: 2/3;
+    text-align: left;
+
+  }
+
+  .buttons {
+    grid-row: 1/2;
+    grid-column: 3/4;
+    text-align: right;
+
+  }
+
+  .canvas {
+    grid-row: 2/3;
+    grid-column: 2/4;
+  }
+
+  .help {
+    grid-row: 3/4;
+    grid-column: 2/4;
+    margin-top: 2%;
+  }
+
+
+  /*margin, paddings and fonts for whole page*/
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Simple', sans-serif;
+  }

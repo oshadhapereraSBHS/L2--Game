@@ -1,14 +1,9 @@
-<!--
-dropdown for levels
-press cancel
-
-
--->
-
-
-
 <!doctype html>
 <meta charset="UTF-8">
+
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
 
 <body>
 
@@ -40,213 +35,14 @@ press cancel
   </div>
 
 
-  <style>
 
-    /*padding for help button and top row (heading and play/pasue buttons)*/
-    #help {
-      padding: 1%;
-    }
-
-    .title,
-    .buttons {
-      margin-top: 2%;
-    }
-
-    /*font size for text*/
-    p {
-      font-size: 13px;
-    }
-
-    /*custom font*/
-    @font-face {
-      font-family: Simple;
-      src: url(fonts/Simple.ttf);
-    }
-
-    /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
-    #container {
-      display: grid;
-      grid-template-columns: 1fr 300px 297px 1fr;
-      grid-gap: 3px;
-
-    }
-
-    /*formatting for play/pause buttons*/
-    #playButton,
-    #pauseButton {
-      height: 30px;
-      width: 30px;
-      font-size: 20px;
-    }
-
-    /*positioning divs in the grid layout*/
-    .title {
-      grid-row: 1/2;
-      grid-column: 2/3;
-      text-align: left;
-
-    }
-
-    .buttons {
-      grid-row: 1/2;
-      grid-column: 3/4;
-      text-align: right;
-
-    }
-
-    .canvas {
-      grid-row: 2/3;
-      grid-column: 2/4;
-    }
-
-    .help {
-      grid-row: 3/4;
-      grid-column: 2/4;
-      margin-top: 2%;
-    }
-
-
-    /*margin, paddings and fonts for whole page*/
-    * {
-      margin: 0;
-      padding: 0;
-      font-family: 'Simple', sans-serif;
-    }
-  </style>
+  <script src="variables.js"></script>
+  <script src="player.js"></script>
+  <script src="enemy.js"></script>
+  <script src="bullet.js"></script>
+  <script src="menu.js"></script>
 
   <script>
-    //variables for canvas
-    var canvas, canvasContext;
-
-
-    //variables for adding images for player, enemy and background
-    //player
-    var player = new Image();
-    player.src = "images/spritesheet.png"
-
-    //enemy
-    var enemySrc = new Image();
-    enemySrc.src = "images/enemy.png"
-
-    //background
-    var background = new Image();
-    background.src = "images/bg.png"
-
-    //variables for adding sounds
-    //sound effect for bullets
-    var bulletSound = document.createElement("audio")
-    bulletSound.src = "music/bulletsound.mp4"
-
-    //background music
-    var music = document.createElement("audio")
-    music.src = "music/music.mp4"
-
-    //game over sound effect
-    var gameOver = document.createElement("audio")
-    gameOver.src = "music/gameover.mp4"
-
-    //constants for background properties
-    //constants for background physical properties
-    const BACKGROUND_X_POS = 0;
-    const BACKGROUND_Y_POS = 0;
-    const BACKGROUND_WIDTH = 600;
-    const BACKGROUND_HEIGHT = 600;
-    //constants and variables for player properties relating to source image
-    const BACKGROUND_SOURCE_X_POS = 0;
-    const BACKGROUND_SOURCE_Y_POS = 0;
-    const BACKGROUND_SOURCE_WIDTH = 1422;
-    const BACKGROUND_SOURCE_HEIGHT = 798;
-
-    //variables and constants for player properties
-    //constants and variables for player's physical properties
-    const PLAYER_HEIGHT = 90;
-    const PLAYER_WIDTH = 60;
-    var playerXpos = (600 - PLAYER_WIDTH) / 2
-    var playerYpos = 600 - PLAYER_HEIGHT
-    var playerSpeed = 5;
-    //constants and variables for player properties relating to source image for the generation of changing sprites
-    var playerSourceXpos = 0;
-    var playerSourceYpos = 0;
-    const PLAYER_SOURCE_WIDTH = 130;
-    const PLAYER_SOURCE_HEIGHT = 200;
-    //variable for player starting y position used in controlling player movement (stopping player from walking when it is jumping)
-    var playerStartYpos = 510
-
-    //variables and constants for enemy properties
-    //constants and variables for enemy's physical properties
-    const ENEMY_SIZE = 30;
-    var enemyXpos = 600;
-    var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
-    var enemySpeed = 4;
-    //constants and variables for player properties relating to source image for the generation of changing sprites
-    const ENEMY_SOURCE_X_POS = 0;
-    const ENEMY_SOURCE_Y_POS = 0;
-    const ENEMY_SOURCE_WIDTH = 400;
-    const ENEMY_SOURCE_HEIGHT = 400;
-
-    //variables and constants for bullet properties
-    var bulletStartXpos = 2 / 3;
-    var bulletStartYpos = 2;
-    const BULLET_SIZE = 5;
-    var bulletXpos = playerXpos + PLAYER_WIDTH * bulletStartXpos;
-    var bulletYpos = playerYpos + PLAYER_HEIGHT / bulletStartYpos;
-    var bulletSpeed = 4;
-
-    //constants for road image
-    const ROAD_WIDTH = 600;
-    const ROAD_HEIGHT = 6;
-    const ROAD_Y_POS = 600 - ROAD_HEIGHT;
-    const ROAD_X_POS = 0;
-
-    //variables for total for enemy & bullet, and whether enemy & bullet are being made - used to control how much enemies & bullets appear at the screen
-    var totalEnemies = 5;
-    var makingEnemies = true;
-    var totalBullets = 10;
-    var makingBullets = false;
-
-    //arrays for enemy, bullets and player sprites
-    var enemies = [];
-    var bullets = [];
-    var sprites = [];
-
-    //constant for the total number of sprites and variable for the sprite the player is currently in
-    const SPRITES = 4;
-    var spriteNum = 0;
-
-    //constants for key codes used in registering player input for movement and shooting bullets
-    const UP_KEY = 38;
-    const SPACE_KEY = 32;
-
-    //variables to reguster whether a key is pressed, based on the previously mentioned key codes
-    var upKeyPress = false;
-    var spaceKeyPress = false;
-
-    //variable for gravity for when player is moving down
-    var gravity = 1;
-
-    //variables for controlling speed of enemies
-    var maxEnemySpeed = 9;
-    var minEnemySpeed = 5;
-
-    //variable for level, score, lives and username
-    var level = "";
-    var score = 0;
-    var lives = 3;
-    var username = "";
-
-    //variables for counting used and remaining bullets
-    var bulletCount = 0;
-    var bulletsRemaining = 5;
-
-    //variable for checking whether play or pause is pressed
-    var playGame = false;
-var validUsername=true;
-    //increase timer by 1 every 0.5 second when player has lives remaining, and play button has been pressed (so the score won't increase when pause is pressed)
-    setInterval(function() {
-      if (lives > 0 && playGame == true) {
-        score++
-      }
-    }, 500)
 
     //when page is loading set canvas properties and run mainloop 50 times per second
     window.onload = function() {
@@ -254,480 +50,71 @@ var validUsername=true;
       canvasContext = canvas.getContext('2d');
 
       setInterval(mainloop, 1000 / 50);
-      //variable for asking username
-      var username = prompt('Enter username')
-      while (username == "" || username == null){
-        var confirmExit = confirm('You cannot play without a username. Press OK to enter username, or press cancel to leave game.')
-        if(confirmExit == true){
-          var username = prompt('Enter username')
-        }
-        else {
-          validUsername = false;
-          alert('Goodbye!');
-          break;
 
-        }
-      }
-
-       if(validUsername){
-        var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-        //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
-        if (level !== null && level !== "") {
-          level = level.toLowerCase();
-          playGame = false;
-        }
-
-        //when valid level is not entered, keep asking for level and converting it to lowercase to chack whether valid value was entered
-        while (level !== 'easy' && level !== 'medium' && level !== 'hard') {
-          var level = prompt('Hello ' + username + '. Please enter valid level: Easy, Medium or Hard?')
-          if (level !== null && level !== "") {
-            level = level.toLowerCase();
-          }
-        }
-
-      //variable for asking level
+      askUsername();
 
 
-      //set different values for the total enemies, total bullets and max and min speeds for enemies, based on the level chosen
-      if (level == "easy") {
-        totalEnemies = 3;
-        minEnemySpeed = 3;
-        maxEnemySpeed = 5;
-        totalBullets = 20;
-      } else if (level == "medium") {
-        totalEnemies = 5;
-        minEnemySpeed = 5;
-        maxEnemySpeed = 8;
-        totalBullets = 15;
-      } else {
-        totalEnemies = 8;
-        minEnemySpeed = 8;
-        maxEnemySpeed = 12;
-        totalBullets = 10;
-      }
+askLevel();
 
+if(validLevel && validUsername){
       //alerts to display intructions
-      alert('Use up arrow to jump and space bar to shoot. You have ' + totalBullets + ' bullets available.')
-      alert('Hitting a comet would lower your lives by 1. You have 3 lives and the aim is to survive for as long as possible.')
-      alert('Press play button to start.')
+      alert('Use up arrow to jump and space bar to shoot. \nYou have ' + totalBullets + ' bullets available.')
+      alert('Hitting a comet would lower your lives by 1. \nYou have 3 lives and the aim is to survive for as long as possible.')
+      alert('Press Ok, and then click play button to start.')
 
-} else {
-  stopGame();
 }
     } //end of function
 
-    function help() {
-      //show help/intructions when help button is pressed
-      document.getElementById("helpText").innerHTML = "<br />" + 'Use up arrow to jump and space bar to shoot.' + "<br />" + "<br />" + ' You have ' + totalBullets + ' bullets available.' + "<br />" + "<br />" +
-        ' Hitting a comet would lower your lives by 1. ' + "<br />" + "<br />" + 'You have 3 lives and the aim is to survive for as long as possible. ' + "<br />" + "<br />" + 'You can replay the game to improve your high score.' + "<br />" +
-        "<br />" + ' Press play button to start.' + "<br />"
-    }//end of function help()
+        //mainloop that continuously runs every 50 seconds
+        function mainloop() {
+          //background image
+          drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
+          //pause music when pause button is pressed
+          music.pause();
 
-    //function for making enemy objects
-    function makeEnemies() {
-      //defining enemy properties. enemyPos and enemySpeed are randomised for each enemy will come from a different place with a different speed to make the game more interesting and dynamic. enemyYpos is calculated to make the enemies come from the left side of the screen without going out of the screen - hence why the enmy size and road heigh is subtracted from the canvas height
-      const ENEMY_SIZE = 55;
-      var enemyPos = Math.floor(Math.random() * 4) + 1;
-      var enemyXpos = canvas.width;
-      var enemyYpos = ((canvas.height - ROAD_HEIGHT - ENEMY_SIZE) / 4) * enemyPos;
-      var enemySpeed = Math.floor(Math.random() * (maxEnemySpeed - minEnemySpeed) + minEnemySpeed);
-
-      //making an object for each enemy and using previously defined properties in the enemy object
-      var enemy = {
-        enemyXpos: enemyXpos,
-        enemyYpos: enemyYpos,
-        ENEMY_SIZE: ENEMY_SIZE,
-        enemySpeed: enemySpeed
-      }
-
-      //pushing each enemy object into enemies array
-      enemies.push(enemy)
-
-    } //end of function makeEnemies()
-
-    //function for making bullet objects
-    function makeBullets() {
-
-      //defining bullet properties. x and y positions are dependent on player position because bullets are coming from the player
-      const BULLET_SIZE = 5;
-      var bulletXpos = playerXpos + PLAYER_WIDTH * bulletStartXpos;
-      var bulletYpos = playerYpos + PLAYER_HEIGHT / bulletStartYpos;
-      var bulletSpeed = 4;
-
-      //making an object for each bullet and using previously defined properties in the bullet object
-      var bullet = {
-        bulletXpos: bulletXpos,
-        bulletYpos: bulletYpos,
-        BULLET_SIZE: BULLET_SIZE,
-        bulletSpeed: bulletSpeed,
-        bulletColor: 'green'
-      }
-
-      //pushing each bullet object into bullets array
-      bullets.push(bullet)
-    } //end of function makeBullets()
-
-    //this function draws the status bar - the bar is composed of two rectangles, one red rectangle showing the no. of lives left, and another grey rectangle showing the no. of lives spent
-    function progress() {
-      if (lives == 3) {
-        //if lives ==3, draw a red rectangle
-        colorRect((canvas.width - 100) / 2, 50, 100, 5, 'red')
-
-      } else if (lives == 2) {
-        //if lives ==2, show 2/3 of the red rectangle and 1/3 of the grey rectangle
-        colorRect((canvas.width - 100) / 2, 50, 66, 5, 'red')
-        colorRect((canvas.width - 100) / 2 + 66, 50, 34, 5, 'lightGrey')
-
-      } else if (lives == 1) {
-        //if lives ==1, show 1/3 of the red rectangle and 2/3 of the grey rectangle
-        colorRect((canvas.width - 100) / 2, 50, 33, 5, 'red')
-        colorRect((canvas.width - 100) / 2 + 33, 50, 67, 5, 'lightGrey')
-
-      } else {
-        //if lives are not left, show the grey rectangle
-        colorRect((canvas.width - 100) / 2, 50, 100, 5, 'lightGrey')
-      }
-    }//end of function progress()
+          if (lives > 0) {
+    gameStatus();
+            //drawing staus bar
+            progress();
+            //drawing enemy objects
+            drawEnemies();
 
 
-
-    //mainloop that continuously runs every 50 seconds
-    function mainloop() {
-      //background image
-      drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
-      //pause music when pause button is pressed
-      music.pause();
-
-      if (lives > 0) {
-        //when player is alive, have event listeners for clicking play, pause or help
-        document.getElementById('playButton').addEventListener("click", play);
-        document.getElementById('pauseButton').addEventListener("click", pause);
-        document.getElementById('help').addEventListener("click", help);
-        //player sprites
-        drawImg(player, playerSourceXpos, playerSourceYpos, PLAYER_SOURCE_WIDTH, PLAYER_SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
-        //road image
-        colorRect(ROAD_X_POS, ROAD_Y_POS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
-        //display score, remaining bullets, and lives on screen
-        canvasContext.font = '16pt Calibri';
-        canvasContext.fillStyle = 'white';
-        canvasContext.shadowBlur = 2; //sets shadow properties
-        canvasContext.shadowColor = 'black'
-        canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
-        canvasContext.fillText('Lives: ' + lives, canvas.width * 0.45, 40);
-        canvasContext.fillText('Bullets: ' + bulletsRemaining, canvas.width * 0.8, 40);
-        //drawing staus bar
-        progress();
-        //drawing enemy objects
-        drawEnemies();
-
-
-        //for loop that makes enemies - by running makeEnemies() function - only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
-        if (makingEnemies == true) {
-          for (i = 0; i < totalEnemies; i++) {
-            makeEnemies();
-          }
-          makingEnemies = false;
-        }
-
-        //if play button is pressed
-        if (playGame == true) {
-          //play background music
-          music.play();
-
-          //event listeners for pressing and releasing keys. This is not added with other event listeners because these control keys should not be available when pause is pressed
-          document.addEventListener('keydown', keyPressed);
-          document.addEventListener('keyup', keyReleased);
-          //run following functions in mainloop : movement of player & enemy, animation of player sprites, and calculating remaining bullets
-          playerMove();
-          enemyMove();
-          playerAnimation();
-          calculateBulletsRemaining();
-
-          //if there are bullets left
-          if (bulletCount <= totalBullets) {
-            //move bullets, draw bullets images, and make bullet objects if makingBullets is true
-            bulletMove();
-            if (makingBullets == true) {
-              makeBullets();
-              makingBullets = false;
+            //for loop that makes enemies - by running makeEnemies() function - only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
+            if (makingEnemies == true) {
+              for (i = 0; i < totalEnemies; i++) {
+                makeEnemies();
+              }
+              makingEnemies = false;
             }
-            drawBullets();
-          }
-        }
+
+            //if play button is pressed
+            if (playGame == true) {
+              //play background music
+              music.play();
+
+              //event listeners for pressing and releasing keys. This is not added with other event listeners because these control keys should not be available when pause is pressed
+              document.addEventListener('keydown', keyPressed);
+              document.addEventListener('keyup', keyReleased);
+              //run following functions in mainloop : movement of player & enemy, animation of player sprites, and calculating remaining bullets
+              playerMove();
+              enemyMove();
+              playerAnimation();
+              calculateBulletsRemaining();
+
+    bulletsLeft()
+            }
 
 
 
-      } else {
-        //play game over sound effect
-        gameOver.play();
-        //calculate high score
-        calculateHighScore();
-        canvasContext.font = '32pt Calibri'; //sets font
-        canvasContext.fillStyle = 'white'; //sets font colour
-        canvasContext.shadowBlur = 2; //sets shadow properties
-        canvasContext.shadowColor = 'black'
+          } else {
+            //play game over sound effect
+            gameOver.play();
+            //calculate high score
+            calculateHighScore();
+    endScreen();
+        } //end of function mainloop()
 
-        canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
-        canvasContext.fillText(username + 'Your score is ' + score, (canvas.width - username.length * 32) * 0.3, canvas.height * 0.55); //displays current score
-        canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
-        setTimeout(reload, 1000);// asks user whether yhey want to play again, after 1 second of displaying endscreen
-      }
-    } //end of function mainloop()
-
-
-    //function for reloading page after endscreen
-    function reload() {
-      //if condition for checking whether player lost
-      if (lives <= 0) {
-        var playAgain = confirm("Play again?") //var for storing user preference for playing again, when asking this using a confirm prompt
-
-        if (playAgain == true) {
-          location.reload(); //page will reload if they say they want to play again.
-          lives = 3//lives will set back to 3 to prevent prompt from reloading
-
-        } else {//if player doesn't want to play again
-          alert("Thank you for playing! We hope you will come back!")//thanks message
-          alert("You can refresh the page if you feel like replaying!")
-          stopGame();
-
-        }
-      }
-    }//end of function reload()
-
-var gameStopped =false;
-    function stopGame(){
-gameStopped = true;
-      playGame = false;//mainloop is stopped
-      lives = 3//variables are set to default values
-      score = 0;
-      playerXpos = (600 - PLAYER_WIDTH) / 2;
-      playerYpos = 600 - PLAYER_HEIGHT;
-      canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
-      document.getElementById("pauseButton").style.display = 'none'//play and pasue buttons are removed
-      enemies.forEach(function(enemy, i, array) {//enemies are deleted
-        delete enemies[i]
-      })
-
-    }
-
-
-
-    function calculateHighScore() {
-      //set var highscore to the highscore stored in local storage
-      var highScore = localStorage.getItem('highScore')
-      //when user achieves a new high score, update the stored high score to reflect the new one
-      if (score > highScore) {
-        localStorage.setItem('highScore', score)
-      }
-      //when highscore is null, set it to zero
-      if (highScore == null) {
-        localStorage.setItem('highScore', 0)
-      }
-    } //end of function calculateHighScore()
-
-    function calculateBulletsRemaining() {
-      //update no. of remaining bullets when bullets are left. Otherwise, set it to zero so that a negative value won't be displayed on the canvas
-      if (bulletCount <= totalBullets) {
-        bulletsRemaining = totalBullets - bulletCount;
-      } else {
-        bulletsRemaining = 0;
-      }
-    } //end of function calculateBulletsRemaining()
-
-    //defining colorRect function used to draw quadrilateral shapes
-    function colorRect(x, y, w, h, c) {
-      canvasContext.fillStyle = c;
-      canvasContext.fillRect(x, y, w, h);
-    } //end of function colorRect()
-
-    //defining function used to draw images using properties of source and properties of the physical image shown on the canvas
-    function drawImg(img, sX, sY, sW, sH, dX, dY, dW, dH) {
-      canvasContext.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
-    } //end of function drawImg()
-
-    //event for when keys are pressed
-    function keyPressed(evt) {
-
-      //make upKeyPress = true (later used in moving player) when up key is pressed (when the keycode of the up key is detected)
-      if (evt.keyCode == UP_KEY) {
-        upKeyPress = true;
-      }
-
-      //make spaceKeyPress = true (then used to run make bullet objects) when space key is pressed (when the keycode of the space key is detected). This will only run if playGame == true (so not when game is paused). It will also play the bullet sound effect since pressing space bar indicates the player has shot a bullet.
-      if (evt.keyCode == SPACE_KEY && playGame == true) {
-        spaceKeyPress = true;
-        bulletSound.play();
-        makeBullets();
-        bulletCount++;
-      }
-    } //end of function keyPressed()
-
-    //event for when keys are released
-    function keyReleased(evt) {
-
-      //change upKeyPress and spaceKeyPress to false (so stop moving player & making bullets) when each key is released
-      if (evt.keyCode == UP_KEY) {
-        upKeyPress = false;
-      }
-      if (evt.keyCode == SPACE_KEY) {
-        spaceKeyPress = false;
-      }
-    } //end of function keyReleased(evt)
-
-
-    //when play button is pressed, playGame = true
-    function play(evt) {
-if (gameStopped==false){
-  playGame = true;
-} else {
- location.reload();
 }
-
-
-    }//end of function play(evt)
-
-    //when pause button is pressed, playGame = false
-    function pause(evt) {
-      playGame = false;
-    }//end of function pause()
-
-    //function for moving player
-    function playerMove() {
-
-
-      //when up key is not pressed and player is not at starting position, increase y pos by gravity (so player moves down). During this, increase gravity by 0.4 so gravity will get greater and greater. This will cause player y pos to increase in greater increments and accelerate downwards, causing a 'gravity effect'
-      if (upKeyPress == false && playerYpos < canvas.height - PLAYER_HEIGHT) {
-        playerYpos += gravity;
-        gravity += 0.4;
-      }
-
-      //when up key is pressed and player is in canvas, move player upwards at a constant speed. Restore gravity value to 0.5 so that when the player jumps for the next time, gravity value won't keep increasing to higher values as a continuation from the previous value. Stopping the player from going out of the canvas players can't go out of the screen as a way of avoiding enemies and getting a better score / cheating.
-      if (upKeyPress == true && playerYpos > 0) {
-        playerYpos -= playerSpeed;
-        gravity = 0.5;
-      }
-
-      //player touches the bottom of the canvas, stop moving. A greater than or equal to sign is used since an equal sign would be inefficient in cases where the player is moving fast and the if condition is missed when player is touching the bottom of the screen.
-      if (playerYpos >= canvas.height - PLAYER_HEIGHT) {
-        playerYpos = canvas.height - PLAYER_HEIGHT
-      }
-
-      //for loop used in going through each sprite
-      for (i = 0; i < SPRITES; i++) {
-
-        //make a multidimensional array where each element in the previously defined sprites array now has two elements in them.
-        sprites[i] = new Array(2);
-        //first item in each element of sprites array will contain the width of each sprite in the source image. This allow the swapping of sprites by adding that width each time as the starting x position.
-        sprites[i][0] = PLAYER_SOURCE_WIDTH * i;
-        //second item in each element of sprites array will be 0 since there is only one row of sprites and the starting y pos does not need to changed.
-        sprites[i][1] = 0;
-
-        //When player is jumping switch image back to Sprite 1 and maintain that sprite, so that player doesn't walk while jumping
-        if (playerYpos < playerStartYpos) {
-          sprites[i][0] = PLAYER_SOURCE_WIDTH;
-        }
-      }
-    } //end of function playerMove()
-
-
-
-
-    function playerAnimation() {
-
-      //constant for frame rate - this will be the rate at which the sprite is changed
-      const FRAME_RATE = 0.1;
-
-      //access the relevent element (0, 1, 2 or 3 depending on which sprite it is currently on) in the sprites array as player loops through the array. Change source x position to the source width (element 1 of each element) so that the sprite will switch to each successive sprite. Change source y position to
-      playerSourceXpos = sprites[Math.floor(spriteNum)][0];
-      playerSourceYpos = sprites[Math.floor(spriteNum)][1];
-
-      //increase spriteNum by the frame rate so sprite will be changing at this rate
-      spriteNum += FRAME_RATE
-
-      //when spriteNum reaches the end of the array, take it back to the start so the sprites will keep swapping.
-      if (spriteNum > 3) {
-        spriteNum = 0;
-      }
-
-    } //end of function playerAnimation()
-
-
-    function enemyMove() {
-      //access each element in enemies array
-      enemies.forEach(function(enemy, i, array) {
-        //increase enemy x pos by enemy speed so they will move left on the screen
-        enemy.enemyXpos -= enemy.enemySpeed
-
-        //when enemy goes out the canvas, move it back to starting position, and randomise its y position and speed
-        if (enemy.enemyXpos < 0 - ENEMY_SIZE) {
-          enemy.enemyXpos = canvas.width;
-          enemy.enemyYpos = Math.floor(Math.random() * ((canvas.height - ENEMY_SIZE - ROAD_HEIGHT) - 0) + 0)
-          enemy.enemySpeed = Math.floor(Math.random() * (maxEnemySpeed - minEnemySpeed) + minEnemySpeed);
-        }
-
-        //when enemy is touching player, (so overlapping either horizontally or vertically) move it back to starting position, and randmise its y position and speed
-        if (enemy.enemyXpos < playerXpos + PLAYER_WIDTH && enemy.enemyXpos + enemy.ENEMY_SIZE >
-          playerXpos && enemy.enemyYpos < playerYpos + PLAYER_HEIGHT && enemy.enemyYpos + enemy
-          .ENEMY_SIZE > playerYpos) {
-          enemy.enemyXpos = canvas.width;
-          enemy.enemyYpos = Math.floor(Math.random() * ((canvas.height - ENEMY_SIZE - ROAD_HEIGHT) - 0) + 0);
-          enemy.enemySpeed = Math.floor(Math.random() * (maxEnemySpeed - minEnemySpeed) + minEnemySpeed);
-          lives--;
-        }
-      })
-    } //end of function enemyMove()
-
-
-
-    function bulletMove() {
-      //access each bullet element in bullets array
-      bullets.forEach(function(bullet, i, array) {
-        //increase bullet x pos by bullet speed so they will move horizontally towards the right of the screen
-        bullet.bulletXpos += bullet.bulletSpeed
-
-        //if the bullets go out the canvas, delete that bullet element
-        if (bulletYpos > canvas.width) {
-          delete bullets[i]
-        }
-
-        //for each enemy element
-        enemies.forEach(function(enemy, i, array) {
-
-          //if enemy is touching bullet, move that enemy out of the canvas and randomise its y pos and speed. Also take bullet out of the canvas so it will be deleted
-          if (enemy.enemyXpos < bullet.bulletXpos + bullet.BULLET_SIZE && enemy.enemyXpos +
-            enemy.ENEMY_SIZE >
-            bullet.bulletXpos && enemy.enemyYpos < bullet.bulletYpos + bullet.BULLET_SIZE &&
-            enemy.enemyYpos + enemy
-            .ENEMY_SIZE > bullet.bulletYpos) {
-            bullet.bulletYpos = canvas.width;
-            enemy.enemyXpos = canvas.width;
-            enemy.enemyYpos = Math.floor(Math.random() * (canvas.height - 0) + 0);
-            enemy.enemySpeed = Math.floor(Math.random() * (maxEnemySpeed - minEnemySpeed) + minEnemySpeed);
-          }
-
-        })
-
-        //remove undefined (e.g. deleted) enemy elements from their array. This will make it easier to count total enemy numbers and total bullet numbers.
-        enemies = enemies.filter(item => item !== undefined);
-        bullets = bullets.filter(item => item !== undefined);
-
-      })
-
-
-    } //end of function bulletMove()
-
-    //function for drawing enemy images by using the syntax defined in drawImg function - source, sprite X position, sprite Y position, sprite width, sprite height, source x position, source y position, source width, source player
-    function drawEnemies() {
-      enemies.forEach(function(enemy, i) {
-        drawImg(enemySrc, 0, 0, 400, 400, enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE)
-      })
-    } //end of function drawEnemies()
-
-    //function for drawing player sprites using the same syntax as above
-    function drawBullets() {
-      bullets.forEach(function(bullet, i) {
-        colorRect(bullet.bulletXpos, bullet.bulletYpos, bullet.BULLET_SIZE, bullet.BULLET_SIZE, 'white')
-      })
-    } //end of function drawBullets()
   </script>
 </body>
