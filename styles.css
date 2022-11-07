@@ -18,6 +18,16 @@
     font-family: Simple;
     src: url(fonts/Simple.ttf);
   }
+.heading {
+  color: white
+}
+  #usernameCanvas, #levelCanvas {
+    background-image: url(images/bg.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    min-height: 600px
+
+  }
 
   /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
   #container {
@@ -25,6 +35,30 @@
     grid-template-columns: 1fr 300px 297px 1fr;
     grid-gap: 3px;
 
+  }
+
+  .canvas {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 250px 1fr;
+    justify-content: center;
+    justify-items: center
+
+
+  }
+
+
+.button {
+  margin: 2%;
+  margin-left: 13%;
+}
+.contentContainer{
+  grid-column: 2/3;
+  grid-row: 2/3;
+}
+
+  h2 {
+    text-align: center;
   }
 
   /*formatting for play/pause buttons*/

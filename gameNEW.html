@@ -22,10 +22,54 @@
     </div>
 
     <!--canvas-->
-    <div class="canvas">
+    <div class="canvas" id="canvas1">
       <canvas id="gameCanvas" width="600" height="600"></canvas>
 
     </div>
+
+    <div class="canvas" id="usernameCanvas">
+      <div class="contentContainer">
+
+
+      <h2 class="heading">
+        Enter username
+      </h2>
+      <input id="username"><br>
+      <button class="button" onclick="submitUsername()">Submit</button>
+      <button class="button" onclick="stopGame()">Cancel</button>
+      <br />
+      <p id=usernameErrorMessage>
+
+      </p>  </div>
+    </div>
+
+    <!-- <div class="canvas" id="levelCanvas">
+<div class="contentContainer">
+
+
+
+
+      <h2 class="heading" id="levelHeading">
+        Enter level
+      </h2>
+      <select id="level">
+        <option value="1">
+          Easy
+        </option>
+        <option value ="2">
+          Medium
+        </option>
+        <option value="3">
+          Hard
+        </option>
+      </select>
+      <button class="button" onclick="submitLevel()">Submit</button>
+      <button class="button" onclick="stopGame()">Cancel</button>
+      <br>
+      <p id=levelErrorMessage>
+
+      </p></div>
+    </div> -->
 
     <!--div for help button and text-->
     <div class="help">
@@ -44,25 +88,66 @@
   <script src="coins.js"></script>
 
   <script>
+    function submitUsername() {
+
+      var username = document.getElementById("username").value
+
+      if (username == null || username == "") {
+        document.getElementById("usernameErrorMessage").innerHTML = "Please enter valid username"
+      } else {
+
+        // document.getElementById('usernameCanvas').style.display = 'none'
+        // document.getElementById("levelCanvas").style.display = 'grid'
+        document.getElementById("levelHeading").innerHTML = "Hi " + username + " . Please choose a level: Easy, Medium, or Hard?"
+      }
+    }
+
+    function submitLevel() {
+      var level = document.getElementById("level").value;
+
+      // if (level ==1) {
+      //
+      //   totalEnemies = 3;
+      //   minEnemySpeed = 3;
+      //   maxEnemySpeed = 5;
+      //   totalBullets = 20;
+      // } else if (level == 2) {
+      //   totalEnemies = 5;
+      //   minEnemySpeed = 5;
+      //   maxEnemySpeed = 8;
+      //   totalBullets = 15;
+      // } else if (level == 3) {
+      //   totalEnemies = 8;
+      //   minEnemySpeed = 8;
+      //   maxEnemySpeed = 12;
+      //   totalBullets = 10;
+      // }
+
+      // document.getElementById("levelCanvas").style.display="none"
+      // document.getElementById("canvas1").style.display="block"
+
+    }
+
     //when page is loading set canvas properties and run mainloop 50 times per second
     window.onload = function() {
       canvas = document.getElementById('gameCanvas');
       canvasContext = canvas.getContext('2d');
 
+      // document.getElementById("canvas1").style.display = "none"
+      // document.getElementById("levelCanvas").style.display = "none"
+
       setInterval(mainloop, 1000 / 50);
 
-      askUsername();
 
 
-      askLevel();
-
-      if (validLevel && validUsername) {
-        //alerts to display intructions
-        alert('Use up arrow to jump and space bar to shoot. \nYou have ' + totalBullets + ' bullets available.')
-        alert('Hitting a comet would lower your lives by 1. \nYou have 3 lives and the aim is to survive for as long as possible.')
-        alert('Press Ok, and then click play button to start.')
-
-      }
+      // if (validLevel && validUsername) {
+      //   //alerts to display intructions
+      //   // alert('Use up arrow to jump and space bar to shoot. \nYou have ' + totalBullets + ' bullets available. \n You will get 5 extra bullets every time you collect a coin.')
+      //   // alert('Hitting a comet would lower your lives by 1. \nYou have 3 lives and the aim is to survive for as long as possible.')
+      //   // alert('Press Ok, and then click play button to start.')
+      //   document.getElementById("canvas2").style.display = "none"
+      //   document.getElementById("canvas1").style.display = "block"
+      // }
     } //end of function
 
     //mainloop that continuously runs every 50 seconds

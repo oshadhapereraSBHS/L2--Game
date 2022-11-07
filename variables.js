@@ -40,8 +40,8 @@ const BACKGROUND_HEIGHT = 600;
 //constants and variables for player properties relating to source image
 const BACKGROUND_SOURCE_X_POS = 0;
 const BACKGROUND_SOURCE_Y_POS = 0;
-const BACKGROUND_SOURCE_WIDTH = 1422;
-const BACKGROUND_SOURCE_HEIGHT = 798;
+const BACKGROUND_SOURCE_WIDTH = 600;
+const BACKGROUND_SOURCE_HEIGHT = 600;
 
 //variables and constants for player properties
 //constants and variables for player's physical properties
