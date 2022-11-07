@@ -5,70 +5,70 @@ setInterval(function calculateScore() {
   }
 }, 500)
 
-function askUsername() {
-  //variable for asking username
-  var username = prompt('Enter username')
-  while (username == "" || username == null) {
-    var noUsername = confirm('You cannot play without a username. \nPress OK to enter username, or press cancel to leave game.')
-    if (noUsername == true) {
-      var username = prompt('Enter username')
-    } else {
-      validUsername = false;
-      alert('Goodbye!');
-      stopGame();
-      break;
-    }
-  }
-}
-
-function askLevel() {
-  if (validUsername) {
-    var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-    if (level != null && level != "") {
-      level = level.toLowerCase();
-    }
-
-    //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
-    while (level == null || level == "") {
-
-      var noLevel = confirm('You cannot play without entering a level. \nPress OK to enter level, or press cancel to leave game.')
-      if (noLevel == true) {
-        var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-        if (level != null && level != "") {
-          level = level.toLowerCase();
-        }
-      } else {
-        validLevel = false;
-        alert('Goodbye')
-        stopGame();
-        break;
-      }
-    }
-  } else {
-    stopGame();
-  }
-}
-
-function setLevel() {
-  if (level == "easy") {
-    totalEnemies = 3;
-    minEnemySpeed = 3;
-    maxEnemySpeed = 5;
-    totalBullets = 20;
-  } else if (level == "medium") {
-    totalEnemies = 5;
-    minEnemySpeed = 5;
-    maxEnemySpeed = 8;
-    totalBullets = 15;
-  } else if (level == 'hard') {
-    totalEnemies = 8;
-    minEnemySpeed = 8;
-    maxEnemySpeed = 12;
-    totalBullets = 10;
-  }
-}
-
-
+// function askUsername() {
+//   //variable for asking username
+//   var username = prompt('Enter username')
+//   while (username == "" || username == null) {
+//     var noUsername = confirm('You cannot play without a username. \nPress OK to enter username, or press cancel to leave game.')
+//     if (noUsername == true) {
+//       var username = prompt('Enter username')
+//     } else {
+//       validUsername = false;
+//       alert('Goodbye!');
+//       stopGame();
+//       break;
+//     }
+//   }
+// }
+//
+// function askLevel() {
+//   if (validUsername) {
+//     var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
+//     if (level != null && level != "") {
+//       level = level.toLowerCase();
+//     }
+//
+//     //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
+//     while (level == null || level == "") {
+//
+//       var noLevel = confirm('You cannot play without entering a level. \nPress OK to enter level, or press cancel to leave game.')
+//       if (noLevel == true) {
+//         var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
+//         if (level != null && level != "") {
+//           level = level.toLowerCase();
+//         }
+//       } else {
+//         validLevel = false;
+//         alert('Goodbye')
+//         stopGame();
+//         break;
+//       }
+//     }
+//   } else {
+//     stopGame();
+//   }
+// }
+//
+// function setLevel() {
+//   if (level == "easy") {
+//     totalEnemies = 3;
+//     minEnemySpeed = 3;
+//     maxEnemySpeed = 5;
+//     totalBullets = 20;
+//   } else if (level == "medium") {
+//     totalEnemies = 5;
+//     minEnemySpeed = 5;
+//     maxEnemySpeed = 8;
+//     totalBullets = 15;
+//   } else if (level == 'hard') {
+//     totalEnemies = 8;
+//     minEnemySpeed = 8;
+//     maxEnemySpeed = 12;
+//     totalBullets = 10;
+//   }
+// }
+//
+//
 function help() {
   //show help/intructions when help button is pressed
   document.getElementById("helpText").innerHTML = "<br />" + 'Use up arrow to jump and space bar to shoot.' + "<br />" + "<br />" + ' You have ' + totalBullets + ' bullets available.' + "<br />" + "<br />" +
