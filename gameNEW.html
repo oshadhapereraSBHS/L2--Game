@@ -496,7 +496,7 @@ var validUsername=true;
 
 var gameStopped =false;
     function stopGame(){
-//gameStopped = true;
+gameStopped = true;
       playGame = false;//mainloop is stopped
       lives = 3//variables are set to default values
       score = 0;
@@ -577,7 +577,7 @@ var gameStopped =false;
 
     //when play button is pressed, playGame = true
     function play(evt) {
-//if (gameStopped==false){
+if (gameStopped==false){
   playGame = true;
 } else {
 //  location.reload();
