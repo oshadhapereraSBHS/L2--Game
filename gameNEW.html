@@ -258,9 +258,9 @@ var validUsername=true;
       var username = prompt('Enter username')
       while (username == "" || username == null){
         var confirmExit = confirm('You cannot play without a username. Press OK to enter username, or press cancel to leave game.')
-        // if(confirmExit == true){
-        //   var username = prompt('Enter username')
-        // }
+        if(confirmExit == true){
+          var username = prompt('Enter username')
+        }
         // else {
         //   validUsername = false;
         //   alert('Goodbye!');
