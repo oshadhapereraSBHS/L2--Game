@@ -15,6 +15,9 @@ enemySrc.src = "images/enemy.png"
 var background = new Image();
 background.src = "images/bg.png"
 
+var coinSrc = new Image();
+coinSrc.src = "images/coin.png"
+
 //variables for adding sounds
 //sound effect for bullets
 var bulletSound = document.createElement("audio")
@@ -67,6 +70,18 @@ const ENEMY_SOURCE_Y_POS = 0;
 const ENEMY_SOURCE_WIDTH = 400;
 const ENEMY_SOURCE_HEIGHT = 400;
 
+//variables and constants for enemy properties
+//constants and variables for enemy's physical properties
+const COIN_SIZE = 20;
+var coinXpos = 600;
+var coinYpos = Math.floor(Math.random() * (590 - 0) + 0)
+var coinSpeed = 4;
+//constants and variables for player properties relating to source image for the generation of changing sprites
+const COIN_SOURCE_X_POS = 0;
+const COIN_SOURCE_Y_POS = 0;
+const COIN_SOURCE_WIDTH = 30;
+const COIN_SOURCE_HEIGHT = 30;
+
 //variables and constants for bullet properties
 var bulletStartXpos = 2 / 3;
 var bulletStartYpos = 2;
@@ -84,6 +99,8 @@ const ROAD_X_POS = 0;
 //variables for total for enemy & bullet, and whether enemy & bullet are being made - used to control how much enemies & bullets appear at the screen
 var totalEnemies = 5;
 var makingEnemies = true;
+var totalCoins = 2;
+var makingCoins = true;
 var totalBullets = 10;
 var makingBullets = false;
 
@@ -91,6 +108,7 @@ var makingBullets = false;
 var enemies = [];
 var bullets = [];
 var sprites = [];
+var coins = [];
 
 //constant for the total number of sprites and variable for the sprite the player is currently in
 const SPRITES = 4;
@@ -110,6 +128,8 @@ var gravity = 1;
 //variables for controlling speed of enemies
 var maxEnemySpeed = 9;
 var minEnemySpeed = 5;
+var maxcoinSpeed = 9;
+var mincoinSpeed = 5;
 
 //variable for level, score, lives and username
 var level = "";

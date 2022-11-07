@@ -5,71 +5,67 @@ setInterval(function calculateScore() {
   }
 }, 500)
 
-function askUsername(){
-//variable for asking username
-var username = prompt('Enter username')
-while (username == "" || username == null){
-var noUsername = confirm('You cannot play without a username. \nPress OK to enter username, or press cancel to leave game.')
-if(noUsername == true){
+function askUsername() {
+  //variable for asking username
   var username = prompt('Enter username')
-}
-else {
-  validUsername = false;
-  alert('Goodbye!');
-  stopGame();
-  break;
-}}}
-
-function askLevel(){
-  if(validUsername){
-   var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-   if(level !== null && level !== ""){level = level.toLowerCase();}
-
-   //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
-   while (level == null || level == "") {
-
-     var noLevel = confirm('You cannot play without entering a level. \nPress OK to enter level, or press cancel to leave game.')
-     if(noLevel == true){
-       var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-if(level !== null && level !== ""){level = level.toLowerCase();}
-     } else {
-       validLevel = false;
-       alert('Goodbye')
-       stopGame();
-       break;
-
-     }
-
-
-
-   }
-
-
-
-
- } else {
-     stopGame();
-   }
-
+  while (username == "" || username == null) {
+    var noUsername = confirm('You cannot play without a username. \nPress OK to enter username, or press cancel to leave game.')
+    if (noUsername == true) {
+      var username = prompt('Enter username')
+    } else {
+      validUsername = false;
+      alert('Goodbye!');
+      stopGame();
+      break;
+    }
+  }
 }
 
-function setLevel(){
-if (level == "easy") {
-totalEnemies = 3;
-minEnemySpeed = 3;
-maxEnemySpeed = 5;
-totalBullets = 20;
-} else if (level == "medium") {
-totalEnemies = 5;
-minEnemySpeed = 5;
-maxEnemySpeed = 8;
-totalBullets = 15;
-} else if (level == 'hard'){
-totalEnemies = 8;
-minEnemySpeed = 8;
-maxEnemySpeed = 12;
-totalBullets = 10;
+function askLevel() {
+  if (validUsername) {
+    var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
+    if (level != null && level != "") {
+      level = level.toLowerCase();
+    }
+
+    //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
+    while (level == null || level == "") {
+
+      var noLevel = confirm('You cannot play without entering a level. \nPress OK to enter level, or press cancel to leave game.')
+      if (noLevel == true) {
+        var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
+        if (level != null && level != "") {
+          level = level.toLowerCase();
+        }
+      } else {
+        validLevel = false;
+        alert('Goodbye')
+        stopGame();
+        break;
+      }
+    }
+  } else {
+    stopGame();
+  }
 }
+
+function setLevel() {
+  if (level == "easy") {
+    totalEnemies = 3;
+    minEnemySpeed = 3;
+    maxEnemySpeed = 5;
+    totalBullets = 20;
+  } else if (level == "medium") {
+    totalEnemies = 5;
+    minEnemySpeed = 5;
+    maxEnemySpeed = 8;
+    totalBullets = 15;
+  } else if (level == 'hard') {
+    totalEnemies = 8;
+    minEnemySpeed = 8;
+    maxEnemySpeed = 12;
+    totalBullets = 10;
+  }
 }
 
 
@@ -78,7 +74,7 @@ function help() {
   document.getElementById("helpText").innerHTML = "<br />" + 'Use up arrow to jump and space bar to shoot.' + "<br />" + "<br />" + ' You have ' + totalBullets + ' bullets available.' + "<br />" + "<br />" +
     ' Hitting a comet would lower your lives by 1. ' + "<br />" + "<br />" + 'You have 3 lives and the aim is to survive for as long as possible. ' + "<br />" + "<br />" + 'You can replay the game to improve your high score.' + "<br />" +
     "<br />" + ' Press play button to start.' + "<br />"
-}//end of function help()
+} //end of function help()
 
 
 
@@ -103,7 +99,7 @@ function progress() {
     //if lives are not left, show the grey rectangle
     colorRect((canvas.width - 100) / 2, 50, 100, 5, 'lightGrey')
   }
-}//end of function progress()
+} //end of function progress()
 
 
 
@@ -116,28 +112,27 @@ function reload() {
     if (playAgain == true) {
       lives = 3;
       score = 0;
-    } else {//if player doesn't want to play again
-      alert("Thank you for playing! We hope you will come back!")//thanks message
-      alert("You can refresh the page if you feel like replaying!")
+    } else { //if player doesn't want to play again
+      alert("Thank you for playing! We hope you will come back!") //thanks message
       stopGame();
 
     }
   }
-}//end of function reload()
+} //end of function reload()
 
 
 
 
-function stopGame(){
+function stopGame() {
   gameStopped = true;
-  playGame = false;//mainloop is stopped
-  lives = 3//variables are set to default values
+  playGame = false; //mainloop is stopped
+  lives = 3 //variables are set to default values
   score = 0;
   playerXpos = (600 - PLAYER_WIDTH) / 2;
   playerYpos = 600 - PLAYER_HEIGHT;
   canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
-  document.getElementById("pauseButton").style.display = 'none'//play and pasue buttons are removed
-  enemies.forEach(function(enemy, i, array) {//enemies are deleted
+  document.getElementById("pauseButton").style.display = 'none' //play and pasue buttons are removed
+  enemies.forEach(function(enemy, i, array) { //enemies are deleted
     delete enemies[i]
   })
 
@@ -210,51 +205,51 @@ function keyReleased(evt) {
 
 //when play button is pressed, playGame = true
 function play(evt) {
-if (gameStopped==false){
-playGame = true;
-} else {
-location.reload();
-}
+  if (gameStopped == false) {
+    playGame = true;
+  } else {
+    location.reload();
+  }
 
 
-}//end of function play(evt)
+} //end of function play(evt)
 
 //when pause button is pressed, playGame = false
 function pause(evt) {
   playGame = false;
-}//end of function pause()
+} //end of function pause()
 
-function gameStatus(){
-//when player is alive, have event listeners for clicking play, pause or help
-document.getElementById('playButton').addEventListener("click", play);
-document.getElementById('pauseButton').addEventListener("click", pause);
-document.getElementById('help').addEventListener("click", help);
-//player sprites
-drawImg(player, playerSourceXpos, playerSourceYpos, PLAYER_SOURCE_WIDTH, PLAYER_SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
-//road image
-colorRect(ROAD_X_POS, ROAD_Y_POS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
-//display score, remaining bullets, and lives on screen
-gameText();
+function gameStatus() {
+  //when player is alive, have event listeners for clicking play, pause or help
+  document.getElementById('playButton').addEventListener("click", play);
+  document.getElementById('pauseButton').addEventListener("click", pause);
+  document.getElementById('help').addEventListener("click", help);
+  //player sprites
+  drawImg(player, playerSourceXpos, playerSourceYpos, PLAYER_SOURCE_WIDTH, PLAYER_SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
+  //road image
+  colorRect(ROAD_X_POS, ROAD_Y_POS, ROAD_WIDTH, ROAD_HEIGHT, 'grey')
+  //display score, remaining bullets, and lives on screen
+  gameText();
 }
 
-function gameText(){
-canvasContext.font = '16pt Calibri';
-canvasContext.fillStyle = 'white';
-canvasContext.shadowBlur = 2; //sets shadow properties
-canvasContext.shadowColor = 'black'
-canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
-canvasContext.fillText('Lives: ' + lives, canvas.width * 0.45, 40);
-canvasContext.fillText('Bullets: ' + bulletsRemaining, canvas.width * 0.8, 40);
+function gameText() {
+  canvasContext.font = '16pt Calibri';
+  canvasContext.fillStyle = 'white';
+  canvasContext.shadowBlur = 2; //sets shadow properties
+  canvasContext.shadowColor = 'black'
+  canvasContext.fillText('Score: ' + score, canvas.width * 0.02, 40);
+  canvasContext.fillText('Lives: ' + lives, canvas.width * 0.45, 40);
+  canvasContext.fillText('Bullets: ' + bulletsRemaining, canvas.width * 0.8, 40);
 }
 
-function endScreen(){
-canvasContext.font = '32pt Calibri'; //sets font
-canvasContext.fillStyle = 'white'; //sets font colour
-canvasContext.shadowBlur = 2; //sets shadow properties
-canvasContext.shadowColor = 'black'
+function endScreen() {
+  canvasContext.font = '32pt Calibri'; //sets font
+  canvasContext.fillStyle = 'white'; //sets font colour
+  canvasContext.shadowBlur = 2; //sets shadow properties
+  canvasContext.shadowColor = 'black'
 
-canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
-canvasContext.fillText(username + 'Your score is ' + score, (canvas.width - username.length * 32) * 0.3, canvas.height * 0.55); //displays current score
-canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
-setTimeout(reload, 1000);// asks user whether yhey want to play again, after 1 second of displaying endscreen
+  canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
+  canvasContext.fillText(username + 'Your score is ' + score, (canvas.width - username.length * 32) * 0.3, canvas.height * 0.55); //displays current score
+  canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
+  setTimeout(reload, 1000); // asks user whether yhey want to play again, after 1 second of displaying endscreen
 }
