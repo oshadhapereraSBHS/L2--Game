@@ -76,12 +76,18 @@ select {
 
   /*formatting for play/pause buttons*/
   #playButton,
-  #pauseButton, #exitButton {
+  #pauseButton {
     height: 30px;
     width: 30px;
     font-size: 20px;
   }
-
+#exitButton{
+  margin-top: 0;
+  display: inline-block;
+  height: 25px;
+  width: 30px;
+  font-size: 20px;
+}
   /*positioning divs in the grid layout*/
   .title {
     grid-row: 1/2;

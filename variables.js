@@ -147,4 +147,6 @@ var validUsername=true;
 var gameStopped =false;
 var validLevel = true;
 
-var displlayExit = false;
+var displayExit = false;
+var playButtonPressed = false;
+var replay = false;
