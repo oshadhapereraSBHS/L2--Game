@@ -5,73 +5,9 @@ setInterval(function calculateScore() {
   }
 }, 500)
 
-function askUsername() {
-  //variable for asking username
-  var username = prompt('Enter username')
-  while (username == "" || username == null) {
-    var noUsername = confirm('You cannot play without a username. \nPress OK to enter username, or press cancel to leave game.')
-    if (noUsername == true) {
-      var username = prompt('Enter username')
-    } else {
-      validUsername = false;
-      alert('Goodbye!');
-      stopGame();
-      break;
-    }
-  }
-}
-
-function askLevel() {
-  if (validUsername) {
-    var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-    if (level != null && level != "") {
-      level = level.toLowerCase();
-    }
-
-    //if condition for converting entered value to lowercase (for chacking whether valid level was entered) as long as the user entered a valid value (not null values)
-    while (level == null || level == "") {
-
-      var noLevel = confirm('You cannot play without entering a level. \nPress OK to enter level, or press cancel to leave game.')
-      if (noLevel == true) {
-        var level = prompt('Hello ' + username + '. Enter level: Easy, Medium or Hard?')
-        if (level != null && level != "") {
-          level = level.toLowerCase();
-        }
-      } else {
-        validLevel = false;
-        alert('Goodbye')
-        stopGame();
-        break;
-      }
-    }
-  } else {
-    stopGame();
-  }
-}
-
-function setLevel() {
-  if (level == "easy") {
-    totalEnemies = 3;
-    minEnemySpeed = 3;
-    maxEnemySpeed = 5;
-    totalBullets = 20;
-  } else if (level == "medium") {
-    totalEnemies = 5;
-    minEnemySpeed = 5;
-    maxEnemySpeed = 8;
-    totalBullets = 15;
-  } else if (level == 'hard') {
-    totalEnemies = 8;
-    minEnemySpeed = 8;
-    maxEnemySpeed = 12;
-    totalBullets = 10;
-  }
-}
-
-
 function help() {
   //show help/intructions when help button is pressed
-  document.getElementById("helpText").innerHTML = "<br />" + 'Use up arrow to jump and space bar to shoot.' + "<br />" + "<br />" + ' You have ' + totalBullets + ' bullets available.' + "<br />" + "<br />" +
+  document.getElementById("helpText").innerHTML = "<br />" + 'Use up arrow to jump and space bar to shoot.' + "<br />" + "<br />" + ' You have ' + totalBullets + ' bullets available, and you will get 5 extra bullets for every coin you collect.' + "<br />" + "<br />" +
     ' Hitting a comet would lower your lives by 1. ' + "<br />" + "<br />" + 'You have 3 lives and the aim is to survive for as long as possible. ' + "<br />" + "<br />" + 'You can replay the game to improve your high score.' + "<br />" +
     "<br />" + ' Press play button to start.' + "<br />"
 } //end of function help()
@@ -107,11 +43,16 @@ function progress() {
 function reload() {
   //if condition for checking whether player lost
   if (lives <= 0) {
+    validLevel=false;
     var playAgain = confirm("Play again?") //var for storing user preference for playing again, when asking this using a confirm prompt
-
     if (playAgain == true) {
+      playGame = false;
+      replay = true;
       lives = 3;
-      score = 0;
+
+document.getElementById("canvas1").style.display="none";
+document.getElementById("levelCanvas").style.display = "grid"
+
     } else { //if player doesn't want to play again
       alert("Thank you for playing! We hope you will come back!") //thanks message
       stopGame();
@@ -121,20 +62,46 @@ function reload() {
 } //end of function reload()
 
 
+function exitGame(){
 
+    confirm("Are you sure you want to exit the game? This will delete all your data.")
+    playGame = false;
+    replay = true;
+    lives = 3;
+if(localStorage.getItem("username")!== "" && localStorage.getItem("username")!== null){
+  document.getElementById("canvas1").style.display="none";
+  document.getElementById("levelCanvas").style.display = "grid"
+
+} else {
+    stopGame();
+}
+
+
+}
 
 function stopGame() {
+
+  displayExit=false;
   gameStopped = true;
   playGame = false; //mainloop is stopped
   lives = 3 //variables are set to default values
   score = 0;
   playerXpos = (600 - PLAYER_WIDTH) / 2;
   playerYpos = 600 - PLAYER_HEIGHT;
+
   canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
   document.getElementById("pauseButton").style.display = 'none' //play and pasue buttons are removed
   enemies.forEach(function(enemy, i, array) { //enemies are deleted
     delete enemies[i]
   })
+  coins.forEach(function(coin, i, array) { //enemies are deleted
+    delete coins[i]
+  })
+  document.getElementById("usernameCanvas").style.display = "none";
+  document.getElementById("levelCanvas").style.display = "none";
+  document.getElementById("canvas1").style.display = "block";
+  document.getElementById("playButton").style.display = "inline-block"
+  document.getElementById("exitButton").style.display = "none"
 
 }
 
@@ -205,10 +172,13 @@ function keyReleased(evt) {
 
 //when play button is pressed, playGame = true
 function play(evt) {
+  playButtonPressed = true;
   if (gameStopped == false) {
     playGame = true;
   } else {
-    location.reload();
+location.reload();
+
+
   }
 
 
@@ -217,12 +187,14 @@ function play(evt) {
 //when pause button is pressed, playGame = false
 function pause(evt) {
   playGame = false;
+
 } //end of function pause()
 
 function gameStatus() {
   //when player is alive, have event listeners for clicking play, pause or help
   document.getElementById('playButton').addEventListener("click", play);
   document.getElementById('pauseButton').addEventListener("click", pause);
+  document.getElementById('exitButton').addEventListener("click", exitGame)
   document.getElementById('help').addEventListener("click", help);
   //player sprites
   drawImg(player, playerSourceXpos, playerSourceYpos, PLAYER_SOURCE_WIDTH, PLAYER_SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);
@@ -249,7 +221,7 @@ function endScreen() {
   canvasContext.shadowColor = 'black'
 
   canvasContext.fillText('Game Over', canvas.width * 0.35, canvas.height * 0.45); //informs the user that they have lost
-  canvasContext.fillText(username + 'Your score is ' + score, (canvas.width - username.length * 32) * 0.3, canvas.height * 0.55); //displays current score
+  canvasContext.fillText('Your score is ' + score, (canvas.width - username.length * 32) * 0.3, canvas.height * 0.55); //displays current score
   canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
   setTimeout(reload, 1000); // asks user whether yhey want to play again, after 1 second of displaying endscreen
 }

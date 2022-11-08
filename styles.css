@@ -2,6 +2,9 @@
   #help {
     padding: 1%;
   }
+  #deleteButton{
+    padding: 1%;
+  }
 
   .title,
   .buttons {
@@ -18,6 +21,18 @@
     font-family: Simple;
     src: url(fonts/Simple.ttf);
   }
+.heading, input {
+  margin-bottom: 4%;
+}
+  #usernameCanvas, #levelCanvas {
+    background-image: url(images/bg.png);
+    background-size:cover;
+    background-repeat: no-repeat;
+    min-height: 600px
+
+  }
+
+
 
   /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
   #container {
@@ -27,6 +42,41 @@
 
   }
 
+  .canvas {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 150px 1fr 150px;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+
+
+  }
+
+#levelButton {
+  margin-left: 2%;
+}
+
+select {
+  text-align: center;
+  min-width: 130px
+}
+.button {
+  margin: 2%;
+  margin-left: 35%;
+}
+.contentContainer{
+  grid-column: 2/3;
+  grid-row: 2/3;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10%
+}
+
+  h2 {
+    text-align: center;
+  }
+
   /*formatting for play/pause buttons*/
   #playButton,
   #pauseButton {
@@ -34,7 +84,13 @@
     width: 30px;
     font-size: 20px;
   }
-
+#exitButton{
+  margin-top: 0;
+  display: inline-block;
+  height: 25px;
+  width: 30px;
+  font-size: 20px;
+}
   /*positioning divs in the grid layout*/
   .title {
     grid-row: 1/2;
@@ -55,12 +111,14 @@
     grid-column: 2/4;
   }
 
-  .help {
+  .help, .delete {
     grid-row: 3/4;
     grid-column: 2/4;
     margin-top: 2%;
   }
-
+#deleteButton{
+  margin-left: 83%;
+}
 
   /*margin, paddings and fonts for whole page*/
   * {

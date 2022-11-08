@@ -18,19 +18,65 @@
     <div class="buttons">
       <button id="playButton">&#x23f5;</button>
       <button id="pauseButton">&#x23f8;</button>
+      <button id="exitButton">x</button>
 
     </div>
 
     <!--canvas-->
-    <div class="canvas">
+    <div class="canvas" id="canvas1">
       <canvas id="gameCanvas" width="600" height="600"></canvas>
 
     </div>
+
+    <div class="canvas" id="usernameCanvas">
+      <div class="contentContainer">
+
+
+        <h2 class="heading" id="usernameHeading">
+          Enter username
+        </h2>
+        <input id="username"><br>
+        <button id="usernameButton" class="button" onclick="submitUsername()">Submit</button>
+        <br />
+      </div>
+    </div>
+
+    <div class="canvas" id="levelCanvas">
+      <div class="contentContainer">
+
+
+
+
+        <h2 class="heading" id="levelHeading">
+          Enter level
+        </h2>
+        <select id="level">
+          <option value="1">
+            Easy
+          </option>
+          <option value="2">
+            Medium
+          </option>
+          <option value="3">
+            Hard
+          </option>
+        </select>
+        <button id="levelButton" class="button" onclick="submitLevel()">Submit</button>
+        <br>
+        <p id=levelErrorMessage>
+
+        </p>
+      </div>
+    </div>
+
 
     <!--div for help button and text-->
     <div class="help">
       <button id="help" onlick="help()">Help</button>
       <p id="helpText"></p>
+    </div>
+    <div class="delete">
+      <button id="deleteButton" onclick="deleteData()">New player</button>
     </div>
   </div>
 
@@ -44,29 +90,106 @@
   <script src="coins.js"></script>
 
   <script>
+    function submitUsername() {
+      var username = document.getElementById("username").value
+      localStorage.setItem('username', username)
+      if (username == null || username == "") {
+        alert("Please enter a username")
+      } else {
+
+
+        document.getElementById('usernameCanvas').style.display = 'none'
+        document.getElementById("levelCanvas").style.display = 'grid'
+        document.getElementById("levelHeading").innerHTML = "Hello " + username + "! " + "<br />" + "Choose a level."
+      }
+    }
+function deleteData(){
+var confirmDelete = confirm("This will delete all your previous data including username and high score. Do you want to continue?")
+if(confirmDelete){localStorage.removeItem("highscore")
+localStorage.removeItem("username")}
+
+
+}
+    function submitLevel() {
+      document.getElementById("levelButton").focus();
+      var level = document.getElementById("level").value;
+      playerYpos = playerYpos = canvas.height - PLAYER_HEIGHT
+      enemies.forEach(function(enemy, i, array) { //enemies are deleted
+        enemy.enemyXpos = canvas.width + 10;
+      })
+      coins.forEach(function(coin, i, array) { //coins are deleted
+        coin.coinXpos = canvas.width + 10;
+      })
+
+
+      if (level == 1) {
+
+        totalEnemies = 3;
+        minEnemySpeed = 3;
+        maxEnemySpeed = 5;
+        totalBullets = 20;
+      } else if (level == 2) {
+        totalEnemies = 5;
+        minEnemySpeed = 5;
+        maxEnemySpeed = 8;
+        totalBullets = 15;
+      } else if (level == 3) {
+        totalEnemies = 8;
+        minEnemySpeed = 8;
+        maxEnemySpeed = 12;
+        totalBullets = 10;
+      }
+
+if(replay == false){
+
+
+      alert('You have 3 lives and the aim is to survive for as long as possible. \nUse up arrow to jump and space bar to shoot.')
+      alert('Hitting a comet would lower your lives by 1. \nYou have ' + totalBullets + ' bullets availabl, and you will get 5 extra bullets every time you collect a coin.')
+      alert('Press Ok, and then click play button to start.')
+}
+      displayExit = false;
+
+
+
+      document.getElementById("levelCanvas").style.display = "none"
+      document.getElementById("canvas1").style.display = "block"
+
+score = 0;
+lives = 3;
+
+    }
+
     //when page is loading set canvas properties and run mainloop 50 times per second
     window.onload = function() {
       canvas = document.getElementById('gameCanvas');
       canvasContext = canvas.getContext('2d');
+      document.getElementById("username").focus();
+
+      displayExit = true;
+
+
+      document.getElementById("canvas1").style.display = "none"
+      document.getElementById("levelCanvas").style.display = "none"
 
       setInterval(mainloop, 1000 / 50);
 
-      askUsername();
+      showExit();
 
-
-      askLevel();
-
-      if (validLevel && validUsername) {
-        //alerts to display intructions
-        alert('Use up arrow to jump and space bar to shoot. \nYou have ' + totalBullets + ' bullets available.')
-        alert('Hitting a comet would lower your lives by 1. \nYou have 3 lives and the aim is to survive for as long as possible.')
-        alert('Press Ok, and then click play button to start.')
-
-      }
     } //end of function
+
+    function showExit() {
+      if (displayExit == true) {
+        document.getElementById("playButton").style.display = "none";
+        document.getElementById("pauseButton").style.display = "none";
+      } else {
+        document.getElementById("playButton").style.display = "inline-block";
+        document.getElementById("pauseButton").style.display = "inline-block"
+      }
+    }
 
     //mainloop that continuously runs every 50 seconds
     function mainloop() {
+      showExit();
       //background image
       drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
       //pause music when pause button is pressed
