@@ -31,16 +31,13 @@
       <div class="contentContainer">
 
 
-      <h2 class="heading">
+      <h2 class="heading" id="usernameHeading">
         Enter username
       </h2>
       <input id="username"><br>
-      <button class="button" onclick="submitUsername()">Submit</button>
-      <button class="button" onclick="stopGame()">Cancel</button>
+      <button id="usernameButton" class="button" onclick="submitUsername()">Submit</button>
       <br />
-      <p id=usernameErrorMessage>
-
-      </p>  </div>
+        </div>
     </div>
 
     <div class="canvas" id="levelCanvas">
@@ -63,8 +60,7 @@
           Hard
         </option>
       </select>
-      <button class="button" onclick="submitLevel()">Submit</button>
-      <button class="button" onclick="stopGame()">Cancel</button>
+      <button id="submitButton" class="button" onclick="submitLevel()">Submit</button>
       <br>
       <p id=levelErrorMessage>
 
@@ -94,13 +90,13 @@
       var username = document.getElementById("username").value
 
       if (username == null || username == "") {
-        document.getElementById("usernameErrorMessage").innerHTML = "Please enter valid username"
+        alert("Please enter a username")
       } else {
 
 
         document.getElementById('usernameCanvas').style.display = 'none'
         document.getElementById("levelCanvas").style.display = 'grid'
-        document.getElementById("levelHeading").innerHTML = "Hi " + username + " . Please choose a level: Easy, Medium, or Hard?"
+        document.getElementById("levelHeading").innerHTML = "Hello " + username + "! " + "<br />"+ "Choose a level."
       }
     }
 
@@ -125,7 +121,9 @@
         totalBullets = 10;
       }
 
-
+        alert('You have 3 lives and the aim is to survive for as long as possible. \nUse up arrow to jump and space bar to shoot.')
+        alert('Hitting a comet would lower your lives by 1. \nYou have ' + totalBullets + ' bullets availabl, and you will get 5 extra bullets every time you collect a coin.')
+        alert('Press Ok, and then click play button to start.')
 
       document.getElementById("levelCanvas").style.display="none"
       document.getElementById("canvas1").style.display="block"
@@ -136,6 +134,8 @@
     window.onload = function() {
       canvas = document.getElementById('gameCanvas');
       canvasContext = canvas.getContext('2d');
+
+
 
       document.getElementById("canvas1").style.display = "none"
       document.getElementById("levelCanvas").style.display = "none"
