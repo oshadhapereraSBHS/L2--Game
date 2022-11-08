@@ -105,12 +105,12 @@
       document.getElementById("levelButton").focus();
       var level = document.getElementById("level").value;
       playerYpos = playerYpos = canvas.height - PLAYER_HEIGHT
-      // enemies.forEach(function(enemy, i, array) { //enemies are deleted
-      //   enemy.enemyXpos = canvas.width + 10;
-      // })
-      // coins.forEach(function(coin, i, array) { //coins are deleted
-      //   coin.coinXpos = canvas.width + 10;
-      // })
+      enemies.forEach(function(enemy, i, array) { //enemies are deleted
+        enemy.enemyXpos = canvas.width + 10;
+      })
+      coins.forEach(function(coin, i, array) { //coins are deleted
+        coin.coinXpos = canvas.width + 10;
+      })
 
 
       if (level == 1) {
