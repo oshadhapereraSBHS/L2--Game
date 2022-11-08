@@ -146,3 +146,5 @@ var playGame = false;
 var validUsername=true;
 var gameStopped =false;
 var validLevel = true;
+
+var displlayExit = false;

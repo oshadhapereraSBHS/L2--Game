@@ -124,6 +124,7 @@ function reload() {
 
 
 function stopGame() {
+  displayExit=false;
   gameStopped = true;
   playGame = false; //mainloop is stopped
   lives = 3 //variables are set to default values
@@ -135,6 +136,10 @@ function stopGame() {
   enemies.forEach(function(enemy, i, array) { //enemies are deleted
     delete enemies[i]
   })
+  document.getElementById("usernameCanvas").style.display = "none";
+  document.getElementById("levelCanvas").style.display = "none";
+  document.getElementById("canvas1").style.display = "block";
+  document.getElementById("playButton").style.display = "inline-block"
 
 }
 
@@ -217,6 +222,10 @@ function play(evt) {
 //when pause button is pressed, playGame = false
 function pause(evt) {
   playGame = false;
+  if(displayExit){
+    var confirmExit = confirm("Are you sure you want to exit the game?")
+    if(confirmExit==true){stopGame();}
+  }
 } //end of function pause()
 
 function gameStatus() {
