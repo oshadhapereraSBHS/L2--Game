@@ -121,9 +121,14 @@ function reload() {
 } //end of function reload()
 
 
+function exitGame(){
 
+    confirm("Are you sure you want to exit the game?")
+    stopGame();
+}
 
 function stopGame() {
+
   displayExit=false;
   gameStopped = true;
   playGame = false; //mainloop is stopped
@@ -136,10 +141,14 @@ function stopGame() {
   enemies.forEach(function(enemy, i, array) { //enemies are deleted
     delete enemies[i]
   })
+  coins.forEach(function(coin, i, array) { //enemies are deleted
+    delete coins[i]
+  })
   document.getElementById("usernameCanvas").style.display = "none";
   document.getElementById("levelCanvas").style.display = "none";
   document.getElementById("canvas1").style.display = "block";
   document.getElementById("playButton").style.display = "inline-block"
+  document.getElementById("exitButton").style.display = "none"
 
 }
 
@@ -222,16 +231,14 @@ function play(evt) {
 //when pause button is pressed, playGame = false
 function pause(evt) {
   playGame = false;
-  if(displayExit){
-    var confirmExit = confirm("Are you sure you want to exit the game?")
-    if(confirmExit==true){stopGame();}
-  }
+
 } //end of function pause()
 
 function gameStatus() {
   //when player is alive, have event listeners for clicking play, pause or help
   document.getElementById('playButton').addEventListener("click", play);
   document.getElementById('pauseButton').addEventListener("click", pause);
+  document.getElementById('exitButton').addEventListener("click", exitGame)
   document.getElementById('help').addEventListener("click", help);
   //player sprites
   drawImg(player, playerSourceXpos, playerSourceYpos, PLAYER_SOURCE_WIDTH, PLAYER_SOURCE_HEIGHT, playerXpos, playerYpos, PLAYER_WIDTH, PLAYER_HEIGHT);

@@ -51,7 +51,7 @@
 
   }
 
-#submitButton {
+#levelButton {
   margin-left: 2%;
 }
 
@@ -76,7 +76,7 @@ select {
 
   /*formatting for play/pause buttons*/
   #playButton,
-  #pauseButton {
+  #pauseButton, #exitButton {
     height: 30px;
     width: 30px;
     font-size: 20px;

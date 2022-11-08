@@ -18,6 +18,7 @@
     <div class="buttons">
       <button id="playButton">&#x23f5;</button>
       <button id="pauseButton">&#x23f8;</button>
+      <button id="exitButton">X</button>
 
     </div>
 
@@ -60,7 +61,7 @@
           Hard
         </option>
       </select>
-      <button id="submitButton" class="button" onclick="submitLevel()">Submit</button>
+      <button id="levelButton" class="button" onclick="submitLevel()">Submit</button>
       <br>
       <p id=levelErrorMessage>
 
@@ -86,7 +87,6 @@
 
   <script>
     function submitUsername() {
-
       var username = document.getElementById("username").value
 
       if (username == null || username == "") {
@@ -101,6 +101,7 @@
     }
 
     function submitLevel() {
+      document.getElementById("levelButton").focus();
       var level = document.getElementById("level").value;
 
       if (level ==1) {
@@ -124,10 +125,13 @@
         alert('You have 3 lives and the aim is to survive for as long as possible. \nUse up arrow to jump and space bar to shoot.')
         alert('Hitting a comet would lower your lives by 1. \nYou have ' + totalBullets + ' bullets availabl, and you will get 5 extra bullets every time you collect a coin.')
         alert('Press Ok, and then click play button to start.')
+displayExit = false;
+
+
 
       document.getElementById("levelCanvas").style.display="none"
       document.getElementById("canvas1").style.display="block"
-      displayExit = false;
+
 
     }
 
@@ -135,6 +139,7 @@
     window.onload = function() {
       canvas = document.getElementById('gameCanvas');
       canvasContext = canvas.getContext('2d');
+      document.getElementById("username").focus();
 
       displayExit = true;
 
@@ -144,7 +149,7 @@
 
       setInterval(mainloop, 1000 / 50);
 
-
+showExit();
 
       // if (validLevel && validUsername) {
       //   //alerts to display intructions
@@ -157,9 +162,12 @@
     } //end of function
 
 function showExit(){
-  if (displayExit){
+  if (displayExit==true){
     document.getElementById("playButton").style.display = "none";
-    document.getElementById("pauseButton").innerHTML = "X";
+    document.getElementById("pauseButton").style.display = "none";
+  } else {
+    document.getElementById("playButton").style.display = "inline-block";
+    document.getElementById("pauseButton").style.display = "inline-block"
   }
 }
 
