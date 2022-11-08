@@ -127,6 +127,7 @@
 
       document.getElementById("levelCanvas").style.display="none"
       document.getElementById("canvas1").style.display="block"
+      displayExit = false;
 
     }
 
@@ -135,6 +136,7 @@
       canvas = document.getElementById('gameCanvas');
       canvasContext = canvas.getContext('2d');
 
+      displayExit = true;
 
 
       document.getElementById("canvas1").style.display = "none"
@@ -154,8 +156,16 @@
       // }
     } //end of function
 
+function showExit(){
+  if (displayExit){
+    document.getElementById("playButton").style.display = "none";
+    document.getElementById("pauseButton").innerHTML = "X";
+  }
+}
+
     //mainloop that continuously runs every 50 seconds
     function mainloop() {
+      showExit();
       //background image
       drawImg(background, BACKGROUND_SOURCE_X_POS, BACKGROUND_SOURCE_Y_POS, BACKGROUND_SOURCE_WIDTH, BACKGROUND_SOURCE_HEIGHT, BACKGROUND_X_POS, BACKGROUND_Y_POS, BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
       //pause music when pause button is pressed
