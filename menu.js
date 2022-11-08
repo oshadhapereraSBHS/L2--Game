@@ -51,7 +51,7 @@ function reload() {
       lives = 3;
 
 document.getElementById("canvas1").style.display="none";
-document.getElementById("levelCanvas").style.display = "block"
+document.getElementById("levelCanvas").style.display = "grid"
 
     } else { //if player doesn't want to play again
       alert("Thank you for playing! We hope you will come back!") //thanks message
@@ -65,11 +65,23 @@ document.getElementById("levelCanvas").style.display = "block"
 function exitGame(){
 
     confirm("Are you sure you want to exit the game? This will delete all your data.")
+    playGame = false;
+    replay = true;
+    lives = 3;
+
+if(localStorage.getItem("username")!== "" && localStorage.getItem("username")!== null){
+  document.getElementById("canvas1").style.display="none";
+  document.getElementById("levelCanvas").style.display = "grid"
+
+} else {
     stopGame();
 }
 
-function stopGame() {
 
+}
+
+function stopGame() {
+music.pause();
   displayExit=false;
   gameStopped = true;
   playGame = false; //mainloop is stopped
@@ -77,6 +89,7 @@ function stopGame() {
   score = 0;
   playerXpos = (600 - PLAYER_WIDTH) / 2;
   playerYpos = 600 - PLAYER_HEIGHT;
+
   canvasContext.fillText('Your high score is ' + localStorage.getItem('highScore'), canvas.width * 0.24, canvas.height * 0.65); //display highscore
   document.getElementById("pauseButton").style.display = 'none' //play and pasue buttons are removed
   enemies.forEach(function(enemy, i, array) { //enemies are deleted
