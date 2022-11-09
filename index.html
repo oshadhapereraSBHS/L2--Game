@@ -1,91 +1,93 @@
 <!doctype html>
-<html lang = "en">
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-  <title>SpaceWalk</title>
-  <!--link for css stylesheet-->
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <title>SpaceWalk</title>
+    <!--link for css stylesheet-->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <!--div for the whole layout-->
-  <div id="container">
-    <!--title-->
-    <div class="title">
-      <h1>Space Walk</h1>
+    <!--div for the whole layout-->
+    <div id="container">
+        <!--title-->
+        <div class="title">
+            <h1>Space Walk</h1>
+        </div>
+
+        <!--div for play, pause and exit buttons. unicodes are used to get the symbols-->
+        <div class="buttons">
+            <button id="playButton">&#x23f5;</button>
+            <button id="pauseButton">&#x23f8;</button>
+            <button id="exitButton">x</button>
+        </div>
+
+        <!--canvas-->
+        <div class="canvas" id="canvas1">
+            <canvas id="gameCanvas" width="600" height="600"></canvas>
+        </div>
+
+        <!--div for username-->
+        <div class="canvas" id="usernameCanvas">
+            <div class="contentContainer">
+                <!--username heading-->
+                <h2 class="heading" id="usernameHeading">
+                    Enter username
+                </h2>
+                <!--username input field-->
+                <input id="username"><br>
+                <button id="usernameButton" class="button" onclick="submitUsername()">Submit</button>
+                <br>
+            </div>
+        </div>
+
+        <!--div for level-->
+        <div class="canvas" id="levelCanvas">
+            <div class="contentContainer">
+                <!--level heading-->
+                <h2 class="heading" id="levelHeading">
+                    Enter level
+                </h2>
+                <!--level dropdown-->
+                <select id="level">
+                    <option value="1">
+                        Easy
+                    </option>
+                    <option value="2">
+                        Medium
+                    </option>
+                    <option value="3">
+                        Hard
+                    </option>
+                </select>
+                <button id="levelButton" class="button" onclick="submitLevel()">Submit</button>
+                <br>
+            </div>
+        </div>
+
+
+        <!--help button-->
+        <div class="help">
+            <button id="help" onclick="help()">Help</button>
+            <p id="helpText"></p>
+        </div>
+        <!--delete button-->
+        <div class="delete">
+            <button id="deleteButton" onclick="deleteData()">New player</button>
+        </div>
     </div>
 
-    <!--div for play, pause and exit buttons. unicodes are used to get the symbols-->
-    <div class="buttons">
-      <button id="playButton">&#x23f5;</button>
-      <button id="pauseButton">&#x23f8;</button>
-      <button id="exitButton">x</button>
-    </div>
 
-    <!--canvas-->
-    <div class="canvas" id="canvas1">
-      <canvas id="gameCanvas" width="600" height="600"></canvas>
-    </div>
-
-    <!--div for username-->
-    <div class="canvas" id="usernameCanvas">
-      <div class="contentContainer">
-        <!--username heading-->
-        <h2 class="heading" id="usernameHeading">
-          Enter username
-        </h2>
-        <!--username input field-->
-        <input id="username"><br>
-        <button id="usernameButton" class="button" onclick="submitUsername()">Submit</button>
-        <br>
-      </div>
-    </div>
-
-    <!--div for level-->
-    <div class="canvas" id="levelCanvas">
-      <div class="contentContainer">
-        <!--level heading-->
-        <h2 class="heading" id="levelHeading">
-          Enter level
-        </h2>
-        <!--level dropdown-->
-        <select id="level">
-          <option value="1">
-            Easy
-          </option>
-          <option value="2">
-            Medium
-          </option>
-          <option value="3">
-            Hard
-          </option>
-        </select>
-        <button id="levelButton" class="button" onclick="submitLevel()">Submit</button>
-        <br>
-      </div>
-    </div>
-
-
-    <!--help button-->
-    <div class="help">
-      <button id="help" onclick="help()">Help</button>
-      <p id="helpText"></p>
-    </div>
-    <!--delete button-->
-    <div class="delete">
-      <button id="deleteButton" onclick="deleteData()">New player</button>
-    </div>
-  </div>
-
-
-  <!--calling js files relating to different elements of the game-->
-  <script src="menu.js"></script>
-  <script src="variables.js"></script>
-  <script src="player.js"></script>
-  <script src="enemy.js"></script>
-  <script src="bullet.js"></script>
-  <script src="coins.js"></script>
-  <script src="main.js"></script>
+    <!--calling js files relating to different elements of the game-->
+    <script src="menu.js"></script>
+    <script src="variables.js"></script>
+    <script src="player.js"></script>
+    <script src="enemy.js"></script>
+    <script src="bullet.js"></script>
+    <script src="coins.js"></script>
+    <script src="main.js"></script>
 
 </body>
+
 </html>
