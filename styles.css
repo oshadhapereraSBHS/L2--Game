@@ -1,123 +1,138 @@
-  /*padding for help button and top row (heading and play/pasue buttons)*/
+  /*padding for help button, delete button, top row of buttons and title*/
   #help {
-    padding: 1%;
+      padding: 1%;
+  }
+
+  #deleteButton {
+      padding: 1%;
   }
 
   .title,
   .buttons {
-    margin-top: 2%;
+      margin-top: 2%;
   }
 
   /*font size for text*/
   p {
-    font-size: 13px;
+      font-size: 13px;
   }
 
   /*custom font*/
   @font-face {
-    font-family: Simple;
-    src: url(fonts/Simple.ttf);
+      font-family: Simple;
+      src: url(fonts/Simple.ttf);
   }
-.heading, input {
-  margin-bottom: 4%;
-}
+
+  /*margins for input fields and headings*/
+  .heading, input {
+      margin-bottom: 4%;
+  }
+
+  /*background images for level and username fields*/
   #usernameCanvas, #levelCanvas {
-    background-image: url(images/bg.png);
-    background-size:cover;
-    background-repeat: no-repeat;
-    min-height: 600px
-
+      background-image: url(images/bg.png);
+      background-size: cover;
+      background-repeat: no-repeat;
+      min-height: 600px
   }
-
-
 
   /*grid layout. pixel values are used for the centre most divs since these will containing the title and the play/pause buttons. If fraction values are used, the title and buttons will misalign with the canvas because the canvas doesn't stretch - it stays at 600px*/
   #container {
-    display: grid;
-    grid-template-columns: 1fr 300px 297px 1fr;
-    grid-gap: 3px;
-
+      display: grid;
+      grid-template-columns: 1fr 300px 297px 1fr;
+      grid-gap: 3px;
   }
 
+  /*grid layout for game canvas, level and username fields. centering items in the grid.*/
   .canvas {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 150px 1fr 150px;
-    justify-content: center;
-    justify-items: center;
-    align-content: center;
-    align-items: center;
-
-
+      display: grid;
+      grid-template-columns: 1fr 2fr 1fr;
+      grid-template-rows: 150px 1fr 150px;
+      justify-content: center;
+      justify-items: center;
+      align-content: center;
+      align-items: center;
   }
 
-#levelButton {
-  margin-left: 2%;
-}
+  /*margins for levels button*/
+  #levelButton {
+      margin-left: 2%;
+  }
 
-select {
-  text-align: center;
-  min-width: 130px
-}
-.button {
-  margin: 2%;
-  margin-left: 35%;
-}
-.contentContainer{
-  grid-column: 2/3;
-  grid-row: 2/3;
-  background-color: rgba(255, 255, 255, 0.5);
-  padding: 10%
-}
+  /*centering and sizes for dropdown  menu*/
+  select {
+      text-align: center;
+      min-width: 130px
+  }
 
+  /*margins for buttons*/
+  .button {
+      margin: 2%;
+      margin-left: 35%;
+  }
+
+  /*positioning username and level containers in grid. adding padding and background*/
+  .contentContainer {
+      grid-column: 2/3;
+      grid-row: 2/3;
+      background-color: rgba(255, 255, 255, 0.5);
+      padding: 10%
+  }
+
+  /*aligning headings*/
   h2 {
-    text-align: center;
+      text-align: center;
   }
 
   /*formatting for play/pause buttons*/
   #playButton,
   #pauseButton {
-    height: 30px;
-    width: 30px;
-    font-size: 20px;
+      height: 30px;
+      width: 30px;
+      font-size: 20px;
   }
-#exitButton{
-  margin-top: 0;
-  display: inline-block;
-  height: 25px;
-  width: 30px;
-  font-size: 20px;
-}
+
+  /*formatting for exit buttons*/
+  #exitButton {
+      margin-top: 0;
+      display: inline-block;
+      height: 25px;
+      width: 30px;
+      font-size: 20px;
+  }
+
   /*positioning divs in the grid layout*/
   .title {
-    grid-row: 1/2;
-    grid-column: 2/3;
-    text-align: left;
-
+      grid-row: 1/2;
+      grid-column: 2/3;
+      text-align: left;
   }
 
   .buttons {
-    grid-row: 1/2;
-    grid-column: 3/4;
-    text-align: right;
-
+      grid-row: 1/2;
+      grid-column: 3/4;
+      text-align: right;
   }
 
   .canvas {
-    grid-row: 2/3;
-    grid-column: 2/4;
+      grid-row: 2/3;
+      grid-column: 2/4;
   }
 
-  .help {
-    grid-row: 3/4;
-    grid-column: 2/4;
-    margin-top: 2%;
+  .help, .delete {
+      grid-row: 3/4;
+      grid-column: 2/4;
+      margin-top: 2%;
   }
 
+  /*margin for delete button*/
+  #deleteButton {
+      margin-left: 83%;
+  }
 
   /*margin, paddings and fonts for whole page*/
   * {
-    margin: 0;
-    padding: 0;
-    font-family: 'Simple', sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: 'Simple', sans-serif;
   }
