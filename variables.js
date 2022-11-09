@@ -5,31 +5,32 @@ var canvas, canvasContext;
 //variables for adding images for player, enemy and background
 //player
 var player = new Image();
-player.src = "images/spritesheet.png"
+player.src = "images/spritesheet.png";
 
 //enemy
 var enemySrc = new Image();
-enemySrc.src = "images/enemy.png"
+enemySrc.src = "images/enemy.png";
 
 //background
 var background = new Image();
-background.src = "images/bg.png"
+background.src = "images/bg.png";
 
+//coin
 var coinSrc = new Image();
-coinSrc.src = "images/coin.png"
+coinSrc.src = "images/coin.png";
 
 //variables for adding sounds
 //sound effect for bullets
-var bulletSound = document.createElement("audio")
-bulletSound.src = "music/bulletsound.mp4"
+var bulletSound = document.createElement("audio");
+bulletSound.src = "music/bulletsound.mp4";
 
 //background music
-var music = document.createElement("audio")
-music.src = "music/music.mp4"
+var music = document.createElement("audio");
+music.src = "music/music.mp4";
 
 //game over sound effect
-var gameOver = document.createElement("audio")
-gameOver.src = "music/gameover.mp4"
+var gameOver = document.createElement("audio");
+gameOver.src = "music/gameover.mp4";
 
 //constants for background properties
 //constants for background physical properties
@@ -47,8 +48,8 @@ const BACKGROUND_SOURCE_HEIGHT = 600;
 //constants and variables for player's physical properties
 const PLAYER_HEIGHT = 90;
 const PLAYER_WIDTH = 60;
-var playerXpos = (600 - PLAYER_WIDTH) / 2
-var playerYpos = 600 - PLAYER_HEIGHT
+var playerXpos = (600 - PLAYER_WIDTH) / 2;
+var playerYpos = 600 - PLAYER_HEIGHT;
 var playerSpeed = 5;
 //constants and variables for player properties relating to source image for the generation of changing sprites
 var playerSourceXpos = 0;
@@ -56,13 +57,13 @@ var playerSourceYpos = 0;
 const PLAYER_SOURCE_WIDTH = 130;
 const PLAYER_SOURCE_HEIGHT = 200;
 //variable for player starting y position used in controlling player movement (stopping player from walking when it is jumping)
-var playerStartYpos = 510
+var playerStartYpos = 510;
 
 //variables and constants for enemy properties
 //constants and variables for enemy's physical properties
 const ENEMY_SIZE = 30;
 var enemyXpos = 600;
-var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0)
+var enemyYpos = Math.floor(Math.random() * (590 - 0) + 0);
 var enemySpeed = 4;
 //constants and variables for player properties relating to source image for the generation of changing sprites
 const ENEMY_SOURCE_X_POS = 0;
@@ -74,7 +75,7 @@ const ENEMY_SOURCE_HEIGHT = 400;
 //constants and variables for enemy's physical properties
 const COIN_SIZE = 20;
 var coinXpos = 600;
-var coinYpos = Math.floor(Math.random() * (590 - 0) + 0)
+var coinYpos = Math.floor(Math.random() * (590 - 0) + 0);
 var coinSpeed = 4;
 //constants and variables for player properties relating to source image for the generation of changing sprites
 const COIN_SOURCE_X_POS = 0;
@@ -96,7 +97,7 @@ const ROAD_HEIGHT = 6;
 const ROAD_Y_POS = 600 - ROAD_HEIGHT;
 const ROAD_X_POS = 0;
 
-//variables for total for enemy & bullet, and whether enemy & bullet are being made - used to control how much enemies & bullets appear at the screen
+//variables for total for enemy & bullet & coin, and whether enemy & bullet & coins are being made - used to control how much enemies & bullets & coins appear at the screen at any time
 var totalEnemies = 5;
 var makingEnemies = true;
 var totalCoins = 2;
@@ -104,7 +105,7 @@ var makingCoins = true;
 var totalBullets = 10;
 var makingBullets = false;
 
-//arrays for enemy, bullets and player sprites
+//arrays for enemy, bullets, coins and player sprites
 var enemies = [];
 var bullets = [];
 var sprites = [];
@@ -128,6 +129,7 @@ var gravity = 1;
 //variables for controlling speed of enemies
 var maxEnemySpeed = 9;
 var minEnemySpeed = 5;
+//variables for controlling speed of coins
 var maxcoinSpeed = 9;
 var mincoinSpeed = 5;
 
@@ -141,12 +143,21 @@ var username = "";
 var bulletCount = 0;
 var bulletsRemaining = 5;
 
-//variable for checking whether play or pause is pressed
+//variable for checking whether game is paused or is playing
 var playGame = false;
-var validUsername=true;
-var gameStopped =false;
+
+//varible for checking whether username and level is entered
+var validUsername = true;
 var validLevel = true;
 
+//variables for checking whether game ended
+var gameStopped = false;
+
+//variable for checking whether only the exit button should be displayed (e.g. when entering username, the play/pause buttons are hidden)
 var displayExit = false;
+
+//variable for checking whether play button was pressed
 var playButtonPressed = false;
+
+//variable for checking whether user chose to replay game
 var replay = false;

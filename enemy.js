@@ -50,6 +50,17 @@ function enemyMove() {
 //function for drawing enemy images by using the syntax defined in drawImg function - source, sprite X position, sprite Y position, sprite width, sprite height, source x position, source y position, source width, source player
 function drawEnemies() {
   enemies.forEach(function(enemy, i) {
-    drawImg(enemySrc, 0, 0, 400, 400, enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE)
+    drawImg(enemySrc, 0, 0, 400, 400, enemy.enemyXpos, enemy.enemyYpos, enemy.ENEMY_SIZE, enemy.ENEMY_SIZE);
   })
 } //end of function drawEnemies()
+
+
+function makeEnemiesIfAllowed (){
+  //for loop that makes enemies by running makeEnemies() function only if the number of enemies on the screen is less than the totalEnemies variable. If the number of enemies on screen is bigger than the defined limit, the code will not make any further enemies. So the number of total enemies can be controlled by adjusting the totalEnemies variable.
+  if (makingEnemies == true) {
+    for (i = 0; i < totalEnemies; i++) {
+      makeEnemies();
+    }
+    makingEnemies = false;
+  }
+}

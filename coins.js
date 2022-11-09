@@ -16,7 +16,7 @@ function makeCoins() {
   }
 
   //pushing each coin object into coins array
-  coins.push(coin)
+  coins.push(coin);
 
 } //end of function makecoins()
 
@@ -47,9 +47,20 @@ function coinMove() {
 } //end of function coinMove()
 
 
+//function for making coin objects
+function makeCoinsIfAllowed(){
+  if (makingCoins == true) {
+    //a for loop is used to carry out the makeCoins() function so that it will loop through coin objects and only make coin objects if the are less coin objects on the canvas than what is defined by the totalCoins variable (i.e. it will only have 2 coins on canvas at any given time when totalCoins = 2)
+    for (i = 0; i < totalCoins; i++) {
+      makeCoins();
+    }
+    makingCoins = false;
+  }
+}
+
 //function for drawing coin images by using the syntax defined in drawImg function - source, sprite X position, sprite Y position, sprite width, sprite height, source x position, source y position, source width, source player
 function drawCoins() {
   coins.forEach(function(coin, i) {
-    drawImg(coinSrc, 0, 0, 570, 572, coin.coinXpos, coin.coinYpos, coin.COIN_SIZE, coin.COIN_SIZE)
+    drawImg(coinSrc, 0, 0, 570, 572, coin.coinXpos, coin.coinYpos, coin.COIN_SIZE, coin.COIN_SIZE);
   })
 } //end of function drawcoins()
