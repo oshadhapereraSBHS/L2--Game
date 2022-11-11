@@ -75,10 +75,11 @@ function reload() {
         var playAgain = confirm("Play again?");
         //if player chooses to play again, carry out game from start (without reloading page)
         if (playAgain == true) {
+            bulletCount = 0;
             playGame = false;
             replay = true;
             lives = 3;
-
+            totalBullets=0;
             //asking for level
             document.getElementById("canvas1").style.display = "none";
             document.getElementById("levelCanvas").style.display = "grid";
@@ -90,7 +91,14 @@ function reload() {
     }
 } //end of function reload()
 
-function setLevelProperties() {
+//function for asking level
+function submitLevel() {
+    validLevel=false;
+    //set cursor to level button
+    document.getElementById("levelButton").focus();
+    //set level variable to the value entered in input field by user
+    var level = document.getElementById("level").value;
+
     if (level == 1) {
         //if level is easy
         //set total enemies, enemy speeds (min and max) and total bullets to relevant values
@@ -98,6 +106,7 @@ function setLevelProperties() {
         minEnemySpeed = 3;
         maxEnemySpeed = 5;
         totalBullets = 20;
+        bulletsRemaining = totalBullets;
     } else if (level == 2) {
         //if level is medium
         //set total enemies, enemy speeds (min and max) and total bullets to relevant values
@@ -105,6 +114,7 @@ function setLevelProperties() {
         minEnemySpeed = 5;
         maxEnemySpeed = 8;
         totalBullets = 15;
+        bulletsRemaining = totalBullets;
     } else if (level == 3) {
         //if level is hard
         //set total enemies, enemy speeds (min and max) and total bullets to relevant values
@@ -112,14 +122,10 @@ function setLevelProperties() {
         minEnemySpeed = 8;
         maxEnemySpeed = 12;
         totalBullets = 10;
+        bulletsRemaining = totalBullets;
     }
-} //end of function setLevelProperties()
-
-function submitLevel() {
-    //set cursor to level button
-    document.getElementById("levelButton").focus();
-    var level = document.getElementById("level").value;
-    playerYpos = playerYpos = canvas.height - PLAYER_HEIGHT;
+    validlevel=true;
+    playerYpos = playerYpos = canvas.height - PLAYER_HEIGHT;//player to default position
     enemies.forEach(function(enemy, i, array) { //enemies are at default position
         enemy.enemyXpos = canvas.width + 10;
     });
@@ -127,14 +133,14 @@ function submitLevel() {
         coin.coinXpos = canvas.width + 10;
     });
 
-    //function for setting level properties
-    setLevelProperties();
 
     //function for showing instructions
     instructions();
-
     //show play and pause buttons
     displayExit = false;
+
+    replay=false;
+
 
     //show game canvas
     document.getElementById("levelCanvas").style.display = "none";
@@ -151,7 +157,7 @@ function instructions() {
         //if this is not a replay of the game (i.e. user is playing for first time)
         //show instructions
         alert('You have 3 lives and the aim is to survive for as long as possible. \nUse up arrow to jump and space bar to shoot.');
-        alert('Hitting a comet would lower your lives by 1. \nYou have ' + totalBullets + ' bullets availabl, and you will get 5 extra bullets every time you collect a coin.');
+        alert('Hitting a comet would lower your lives by 1. \nYou have ' + totalBullets + ' bullets available, and you will an extra bullets every time you collect a coin.');
         alert('Press Ok, and then click play button to start.');
     }
 } //end of function instructions()
@@ -279,9 +285,11 @@ function keyPressed(evt) {
     //make spaceKeyPress = true (then used to run make bullet objects) when space key is pressed (when the keycode of the space key is detected). This will only run if playGame == true (so not when game is paused). It will also play the bullet sound effect since pressing space bar indicates the player has shot a bullet.
     if (evt.keyCode == SPACE_KEY && playGame == true) {
         spaceKeyPress = true;
-        bulletSound.play();
         makeBullets();
-        bulletCount++;
+        if(bulletsRemaining > 0){
+            bulletCount++;
+            bulletSound.play();
+        }
     }
 } //end of function keyPressed(evt)
 

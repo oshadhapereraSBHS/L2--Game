@@ -1,7 +1,6 @@
 //variables for canvas
 var canvas, canvasContext;
 
-
 //variables for adding images for player, enemy and background
 //player
 var player = new Image();
@@ -102,7 +101,7 @@ var totalEnemies = 5;
 var makingEnemies = true;
 var totalCoins = 2;
 var makingCoins = true;
-var totalBullets = 10;
+var totalBullets = 20;
 var makingBullets = false;
 
 //arrays for enemy, bullets, coins and player sprites
@@ -130,8 +129,8 @@ var gravity = 1;
 var maxEnemySpeed = 9;
 var minEnemySpeed = 5;
 //variables for controlling speed of coins
-var maxcoinSpeed = 9;
-var mincoinSpeed = 5;
+var maxCoinSpeed = 9;
+var minCoinSpeed = 5;
 
 //variable for level, score, lives and username
 var level = "";

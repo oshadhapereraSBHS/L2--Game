@@ -5,7 +5,7 @@ function makeCoins() {
     var coinPos = Math.floor(Math.random() * 4) + 1;
     var coinXpos = canvas.width;
     var coinYpos = ((canvas.height - ROAD_HEIGHT - COIN_SIZE) / 4) * coinPos;
-    var coinSpeed = Math.floor(Math.random() * (maxcoinSpeed - mincoinSpeed) + mincoinSpeed);
+    var coinSpeed = Math.floor(Math.random() * (maxCoinSpeed - minCoinSpeed) + minCoinSpeed);
 
     //making an object for each coin and using previously defined properties in the coin object
     var coin = {
@@ -31,17 +31,17 @@ function coinMove() {
         if (coin.coinXpos < 0 - COIN_SIZE) {
             coin.coinXpos = canvas.width;
             coin.coinYpos = Math.floor(Math.random() * ((canvas.height - COIN_SIZE - ROAD_HEIGHT) - 0) + 0);
-            coin.coinSpeed = Math.floor(Math.random() * (maxcoinSpeed - mincoinSpeed) + mincoinSpeed);
+            coin.coinSpeed = Math.floor(Math.random() * (maxCoinSpeed - minCoinSpeed) + minCoinSpeed);
         }
 
         //when coin is touching player, (so overlapping either horizontally or vertically) move it back to starting position, and randmise its y position and speed
         if (coin.coinXpos < playerXpos + PLAYER_WIDTH && coin.coinXpos + coin.COIN_SIZE >
             playerXpos && coin.coinYpos < playerYpos + PLAYER_HEIGHT && coin.coinYpos + coin
             .COIN_SIZE > playerYpos) {
+            totalBullets = totalBullets++;
             coin.coinXpos = canvas.width;
             coin.coinYpos = Math.floor(Math.random() * ((canvas.height - COIN_SIZE - ROAD_HEIGHT) - 0) + 0);
-            coin.coinSpeed = Math.floor(Math.random() * (maxcoinSpeed - mincoinSpeed) + mincoinSpeed);
-            totalBullets = totalBullets + 5;
+            coin.coinSpeed = Math.floor(Math.random() * (maxCoinSpeed - minCoinSpeed) + minCoinSpeed);
         }
     });
 } //end of function coinMove()

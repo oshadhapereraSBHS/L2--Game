@@ -81,7 +81,7 @@ function drawBullets() {
 
 function bulletsLeft() {
     //if there are bullets left
-    if (bulletCount <= totalBullets) {
+    if (bulletCount < totalBullets) {
         //move bullets, draw bullets images, and make bullet objects if makingBullets is true
         bulletMove();
         if (makingBullets == true) {
@@ -89,5 +89,5 @@ function bulletsLeft() {
             makingBullets = false;
         }
         drawBullets();
-    }
+    } 
 } //end of function bulletsLeft()
